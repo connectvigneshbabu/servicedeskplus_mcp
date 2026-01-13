@@ -317,7 +317,234 @@ class AdminManagementClient:
             "GET",
             Config.API_ENDPOINTS["technician_roles"]
         )
-        
+
+    async def convert_user_to_technician(
+        self,
+        user_id: str,
+        technician_data: Optional[Dict[str, Any]] = None,
+        delete_user_after_conversion: bool = False
+    ) -> Dict[str, Any]:
+        """Convert a user to technician
+
+        Args:
+            user_id: ID of the user to convert
+            technician_data: Additional data for technician creation (optional)
+            delete_user_after_conversion: Whether to delete the user after conversion
+
+        Returns:
+            Dict containing technician creation result and optional user deletion result
+        """
+        # Get user details first
+        user_details = await self.get_admin_user(user_id)
+
+        if "error" in user_details:
+            raise Exception(f"Failed to get user details: {user_details['error']}")
+
+        # Prepare technician data from user data
+        tech_data = {
+            "username": user_details.get("username", user_details.get("email", "")),
+            "email": user_details.get("email", ""),
+            "first_name": user_details.get("first_name", ""),
+            "last_name": user_details.get("last_name", ""),
+            "phone": user_details.get("phone", ""),
+            "department": user_details.get("department", ""),
+            "site_id": user_details.get("site_id", ""),
+            "status": user_details.get("status", "active"),
+            "role": "technician"
+        }
+
+        # Merge with additional technician data if provided
+        if technician_data:
+            tech_data.update(technician_data)
+
+        # Create technician
+        technician_result = await self.create_admin_technician(tech_data)
+
+        if "error" in technician_result:
+            raise Exception(f"Failed to create technician: {technician_result['error']}")
+
+        result = {
+            "technician_created": technician_result,
+            "user_converted": user_id
+        }
+
+        # Optionally delete the user after successful technician creation
+        if delete_user_after_conversion:
+            delete_result = await self.delete_admin_user(user_id)
+            result["user_deleted"] = delete_result
+
+        return result
+
+    async def activate_admin_user(self, user_id: str) -> Dict[str, Any]:
+        """Activate a user account"""
+        return await self.update_admin_user(user_id, {"status": "active"})
+
+    async def deactivate_admin_user(self, user_id: str) -> Dict[str, Any]:
+        """Deactivate a user account"""
+        return await self.update_admin_user(user_id, {"status": "inactive"})
+
+    async def lock_admin_user(self, user_id: str) -> Dict[str, Any]:
+        """Lock a user account"""
+        return await self.update_admin_user(user_id, {"status": "locked"})
+
+    async def unlock_admin_user(self, user_id: str) -> Dict[str, Any]:
+        """Unlock a user account"""
+        return await self.update_admin_user(user_id, {"status": "active"})
+
+    async def reset_admin_user_password(self, user_id: str, new_password: str) -> Dict[str, Any]:
+        """Reset user password"""
+        return await self.update_admin_user(user_id, {"password": new_password})
+
+    async def change_admin_user_password(
+        self,
+        user_id: str,
+        current_password: str,
+        new_password: str
+    ) -> Dict[str, Any]:
+        """Change user password (requires current password)"""
+        update_data = {
+            "current_password": current_password,
+            "password": new_password
+        }
+        return await self.update_admin_user(user_id, update_data)
+
+    async def update_admin_user_profile(self, user_id: str, profile_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Update user profile information"""
+        # Validate profile fields
+        valid_fields = [
+            "first_name", "last_name", "email", "phone", "department",
+            "job_title", "employee_id", "location", "manager", "cost_center"
+        ]
+
+        filtered_data = {k: v for k, v in profile_data.items() if k in valid_fields}
+        if not filtered_data:
+            raise ValueError("No valid profile fields provided")
+
+        return await self.update_admin_user(user_id, filtered_data)
+
+    async def search_admin_users(
+        self,
+        query: str,
+        limit: int = Config.DEFAULT_LIMIT,
+        search_fields: Optional[List[str]] = None
+    ) -> Dict[str, Any]:
+        """Search users by query"""
+        params = {
+            "query": query,
+            "limit": min(limit, Config.MAX_LIMIT)
+        }
+
+        if search_fields:
+            params["search_fields"] = ",".join(search_fields)
+
+        return await self._make_request(
+            "GET",
+            f"{Config.API_ENDPOINTS['admin_users']}/search",
+            params=params
+        )
+
+    async def get_admin_user_groups(self, user_id: str) -> Dict[str, Any]:
+        """Get groups that a user belongs to"""
+        return await self._make_request(
+            "GET",
+            f"{Config.API_ENDPOINTS['admin_users']}/{user_id}/groups"
+        )
+
+    async def add_admin_user_to_group(self, user_id: str, group_id: str) -> Dict[str, Any]:
+        """Add user to a group"""
+        group_data = {"group_id": group_id}
+        return await self._make_request(
+            "POST",
+            f"{Config.API_ENDPOINTS['admin_users']}/{user_id}/groups",
+            json_data=group_data
+        )
+
+    async def remove_admin_user_from_group(self, user_id: str, group_id: str) -> Dict[str, Any]:
+        """Remove user from a group"""
+        return await self._make_request(
+            "DELETE",
+            f"{Config.API_ENDPOINTS['admin_users']}/{user_id}/groups/{group_id}"
+        )
+
+    async def bulk_create_admin_users(self, users_data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Create multiple users at once"""
+        if not users_data or len(users_data) > 100:
+            raise ValueError("Users data must contain 1-100 user records")
+
+        # Validate each user record
+        for i, user_data in enumerate(users_data):
+            required_fields = ["username", "email", "first_name", "last_name"]
+            missing_fields = [field for field in required_fields if field not in user_data]
+            if missing_fields:
+                raise ValueError(f"User {i+1}: Missing required fields: {missing_fields}")
+
+        return await self._make_request(
+            "POST",
+            f"{Config.API_ENDPOINTS['admin_users']}/bulk",
+            json_data={"users": users_data}
+        )
+
+    async def bulk_update_admin_users(self, updates_data: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Update multiple users at once"""
+        if not updates_data or len(updates_data) > 100:
+            raise ValueError("Updates data must contain 1-100 user update records")
+
+        # Validate each update record has user_id
+        for i, update_data in enumerate(updates_data):
+            if "user_id" not in update_data:
+                raise ValueError(f"Update {i+1}: Missing user_id field")
+
+        return await self._make_request(
+            "PUT",
+            f"{Config.API_ENDPOINTS['admin_users']}/bulk",
+            json_data={"updates": updates_data}
+        )
+
+    async def get_admin_user_login_history(
+        self,
+        user_id: str,
+        limit: int = 50,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Get user login history"""
+        params = {"limit": min(limit, 1000)}
+
+        if start_date:
+            params["start_date"] = start_date
+        if end_date:
+            params["end_date"] = end_date
+
+        return await self._make_request(
+            "GET",
+            f"{Config.API_ENDPOINTS['admin_users']}/{user_id}/login_history",
+            params=params
+        )
+
+    async def get_admin_user_activity_log(
+        self,
+        user_id: str,
+        limit: int = 50,
+        activity_type: Optional[str] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Get user activity log"""
+        params = {"limit": min(limit, 1000)}
+
+        if activity_type:
+            params["activity_type"] = activity_type
+        if start_date:
+            params["start_date"] = start_date
+        if end_date:
+            params["end_date"] = end_date
+
+        return await self._make_request(
+            "GET",
+            f"{Config.API_ENDPOINTS['admin_users']}/{user_id}/activity_log",
+            params=params
+        )
+
     # ==================== PERMISSION MANAGEMENT ====================
     
     async def get_permissions(self) -> Dict[str, Any]:
@@ -530,4 +757,4 @@ class AdminManagementClient:
             "PUT",
             Config.API_ENDPOINTS["notification_settings"],
             json_data=settings_data
-        ) 
+        )

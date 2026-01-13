@@ -212,6 +212,475 @@ async def handle_list_tools() -> ListToolsResult:
                 "required": ["ticket_id"]
             }
         ),
+
+        # ==================== ADVANCED REQUEST MANAGEMENT ====================
+
+        Tool(
+            name="assign_request",
+            description="Gán request cho technician và group",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request cần gán"
+                    },
+                    "technician_id": {
+                        "type": "string",
+                        "description": "ID của technician"
+                    },
+                    "group_id": {
+                        "type": "string",
+                        "description": "ID của group (tùy chọn)"
+                    }
+                },
+                "required": ["request_id", "technician_id"]
+            }
+        ),
+        Tool(
+            name="reassign_request",
+            description="Gán lại request cho technician khác",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request cần gán lại"
+                    },
+                    "technician_id": {
+                        "type": "string",
+                        "description": "ID của technician mới"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Lý do gán lại (tùy chọn)"
+                    }
+                },
+                "required": ["request_id", "technician_id"]
+            }
+        ),
+        Tool(
+            name="escalate_request",
+            description="Escalate request lên cấp cao hơn",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request cần escalate"
+                    },
+                    "escalation_level": {
+                        "type": "string",
+                        "description": "Cấp độ escalate"
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Lý do escalate"
+                    }
+                },
+                "required": ["request_id", "escalation_level", "reason"]
+            }
+        ),
+        Tool(
+            name="approve_request",
+            description="Phê duyệt request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request cần phê duyệt"
+                    },
+                    "approval_comments": {
+                        "type": "string",
+                        "description": "Comments phê duyệt (tùy chọn)"
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="reject_request",
+            description="Từ chối request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request cần từ chối"
+                    },
+                    "rejection_reason": {
+                        "type": "string",
+                        "description": "Lý do từ chối"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Comments bổ sung (tùy chọn)"
+                    }
+                },
+                "required": ["request_id", "rejection_reason"]
+            }
+        ),
+        Tool(
+            name="get_request_approvals",
+            description="Lấy thông tin phê duyệt của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="get_request_attachments",
+            description="Lấy danh sách attachments của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="add_request_attachment",
+            description="Thêm attachment vào request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "file_path": {
+                        "type": "string",
+                        "description": "Đường dẫn file cần upload"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Mô tả attachment (tùy chọn)"
+                    }
+                },
+                "required": ["request_id", "file_path"]
+            }
+        ),
+        Tool(
+            name="delete_request_attachment",
+            description="Xóa attachment khỏi request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "attachment_id": {
+                        "type": "string",
+                        "description": "ID của attachment cần xóa"
+                    }
+                },
+                "required": ["request_id", "attachment_id"]
+            }
+        ),
+        Tool(
+            name="get_request_history",
+            description="Lấy lịch sử/timeline của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "default": 50
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="get_request_sla_details",
+            description="Lấy thông tin SLA của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="update_request_sla",
+            description="Cập nhật SLA cho request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "sla_data": {
+                        "type": "object",
+                        "description": "Dữ liệu SLA cần cập nhật"
+                    }
+                },
+                "required": ["request_id", "sla_data"]
+            }
+        ),
+        Tool(
+            name="get_request_templates",
+            description="Lấy danh sách request templates có sẵn",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "category": {
+                        "type": "string",
+                        "description": "Lọc theo category (tùy chọn)"
+                    }
+                }
+            }
+        ),
+        Tool(
+            name="create_request_from_template",
+            description="Tạo request từ template",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "template_id": {
+                        "type": "string",
+                        "description": "ID của template"
+                    },
+                    "request_data": {
+                        "type": "object",
+                        "description": "Dữ liệu request bổ sung"
+                    }
+                },
+                "required": ["template_id", "request_data"]
+            }
+        ),
+        Tool(
+            name="close_request",
+            description="Đóng request với closure code và resolution",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request cần đóng"
+                    },
+                    "closure_code": {
+                        "type": "string",
+                        "description": "Mã đóng request"
+                    },
+                    "resolution": {
+                        "type": "string",
+                        "description": "Mô tả giải pháp"
+                    }
+                },
+                "required": ["request_id", "closure_code", "resolution"]
+            }
+        ),
+        Tool(
+            name="get_closure_codes",
+            description="Lấy danh sách closure codes có sẵn",
+            inputSchema={
+                "type": "object",
+                "properties": {}
+            }
+        ),
+        Tool(
+            name="get_request_worklog",
+            description="Lấy worklog entries của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "default": 50
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="add_worklog_entry",
+            description="Thêm worklog entry vào request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Mô tả công việc"
+                    },
+                    "time_spent": {
+                        "type": "string",
+                        "description": "Thời gian đã tiêu tốn (tùy chọn)"
+                    },
+                    "technician_id": {
+                        "type": "string",
+                        "description": "ID của technician (tùy chọn)"
+                    }
+                },
+                "required": ["request_id", "description"]
+            }
+        ),
+        Tool(
+            name="update_worklog_entry",
+            description="Cập nhật worklog entry",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "worklog_id": {
+                        "type": "string",
+                        "description": "ID của worklog entry"
+                    },
+                    "update_data": {
+                        "type": "object",
+                        "description": "Dữ liệu cập nhật"
+                    }
+                },
+                "required": ["request_id", "worklog_id", "update_data"]
+            }
+        ),
+        Tool(
+            name="get_request_custom_fields",
+            description="Lấy custom fields của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="update_request_custom_fields",
+            description="Cập nhật custom fields của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "custom_fields": {
+                        "type": "object",
+                        "description": "Custom fields cần cập nhật"
+                    }
+                },
+                "required": ["request_id", "custom_fields"]
+            }
+        ),
+        Tool(
+            name="get_request_feedback",
+            description="Lấy feedback/survey của request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="submit_request_feedback",
+            description="Gửi feedback cho request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "rating": {
+                        "type": "integer",
+                        "description": "Đánh giá (1-5)"
+                    },
+                    "comments": {
+                        "type": "string",
+                        "description": "Comments (tùy chọn)"
+                    },
+                    "survey_responses": {
+                        "type": "object",
+                        "description": "Phản hồi khảo sát (tùy chọn)"
+                    }
+                },
+                "required": ["request_id", "rating"]
+            }
+        ),
+        Tool(
+            name="get_request_notifications",
+            description="Lấy danh sách notifications đã gửi cho request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    }
+                },
+                "required": ["request_id"]
+            }
+        ),
+        Tool(
+            name="send_request_notification",
+            description="Gửi notification cho request",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "request_id": {
+                        "type": "string",
+                        "description": "ID của request"
+                    },
+                    "notification_type": {
+                        "type": "string",
+                        "description": "Loại notification"
+                    },
+                    "recipients": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Danh sách email người nhận"
+                    },
+                    "custom_message": {
+                        "type": "string",
+                        "description": "Tin nhắn tùy chỉnh (tùy chọn)"
+                    }
+                },
+                "required": ["request_id", "notification_type", "recipients"]
+            }
+        ),
         
         # ==================== USER MANAGEMENT ====================
         Tool(
@@ -1724,6 +2193,296 @@ async def handle_list_tools() -> ListToolsResult:
                 "properties": {}
             }
         ),
+        Tool(
+            name="convert_user_to_technician",
+            description="Chuyển đổi user thành technician trong ServiceDesk Plus",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user cần chuyển đổi thành technician"
+                    },
+                    "technician_data": {
+                        "type": "object",
+                        "description": "Dữ liệu bổ sung cho technician (tùy chọn)",
+                        "additionalProperties": True
+                    },
+                    "delete_user_after_conversion": {
+                        "type": "boolean",
+                        "description": "Có xóa user sau khi chuyển đổi thành technician hay không",
+                        "default": False
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
+        Tool(
+            name="activate_admin_user",
+            description="Kích hoạt tài khoản user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user cần kích hoạt"
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
+        Tool(
+            name="deactivate_admin_user",
+            description="Vô hiệu hóa tài khoản user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user cần vô hiệu hóa"
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
+        Tool(
+            name="lock_admin_user",
+            description="Khóa tài khoản user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user cần khóa"
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
+        Tool(
+            name="unlock_admin_user",
+            description="Mở khóa tài khoản user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user cần mở khóa"
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
+        Tool(
+            name="reset_admin_user_password",
+            description="Reset mật khẩu của user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user cần reset mật khẩu"
+                    },
+                    "new_password": {
+                        "type": "string",
+                        "description": "Mật khẩu mới"
+                    }
+                },
+                "required": ["user_id", "new_password"]
+            }
+        ),
+        Tool(
+            name="update_admin_user_profile",
+            description="Cập nhật thông tin profile của user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user cần cập nhật"
+                    },
+                    "profile_data": {
+                        "type": "object",
+                        "description": "Dữ liệu profile cần cập nhật",
+                        "properties": {
+                            "first_name": {"type": "string", "description": "Tên"},
+                            "last_name": {"type": "string", "description": "Họ"},
+                            "email": {"type": "string", "description": "Email"},
+                            "phone": {"type": "string", "description": "Số điện thoại"},
+                            "department": {"type": "string", "description": "Phòng ban"},
+                            "job_title": {"type": "string", "description": "Chức vụ"},
+                            "employee_id": {"type": "string", "description": "Mã nhân viên"},
+                            "location": {"type": "string", "description": "Vị trí"},
+                            "manager": {"type": "string", "description": "Quản lý"},
+                            "cost_center": {"type": "string", "description": "Trung tâm chi phí"}
+                        }
+                    }
+                },
+                "required": ["user_id", "profile_data"]
+            }
+        ),
+        Tool(
+            name="search_admin_users",
+            description="Tìm kiếm users theo từ khóa",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "query": {
+                        "type": "string",
+                        "description": "Từ khóa tìm kiếm"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Số lượng kết quả tối đa (mặc định: 50, tối đa: 1000)",
+                        "default": 50
+                    },
+                    "search_fields": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Các trường cần tìm kiếm (tùy chọn)"
+                    }
+                },
+                "required": ["query"]
+            }
+        ),
+        Tool(
+            name="get_admin_user_groups",
+            description="Lấy danh sách groups mà user thuộc về",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user"
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
+        Tool(
+            name="add_admin_user_to_group",
+            description="Thêm user vào group",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user"
+                    },
+                    "group_id": {
+                        "type": "string",
+                        "description": "ID của group"
+                    }
+                },
+                "required": ["user_id", "group_id"]
+            }
+        ),
+        Tool(
+            name="remove_admin_user_from_group",
+            description="Xóa user khỏi group",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user"
+                    },
+                    "group_id": {
+                        "type": "string",
+                        "description": "ID của group"
+                    }
+                },
+                "required": ["user_id", "group_id"]
+            }
+        ),
+        Tool(
+            name="bulk_create_admin_users",
+            description="Tạo nhiều users cùng lúc",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "users_data": {
+                        "type": "array",
+                        "description": "Danh sách dữ liệu users cần tạo",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "username": {"type": "string", "description": "Tên đăng nhập"},
+                                "email": {"type": "string", "description": "Email"},
+                                "first_name": {"type": "string", "description": "Tên"},
+                                "last_name": {"type": "string", "description": "Họ"},
+                                "password": {"type": "string", "description": "Mật khẩu"},
+                                "role": {"type": "string", "description": "Vai trò"},
+                                "department": {"type": "string", "description": "Phòng ban"},
+                                "phone": {"type": "string", "description": "Số điện thoại"}
+                            },
+                            "required": ["username", "email", "first_name", "last_name"]
+                        },
+                        "minItems": 1,
+                        "maxItems": 100
+                    }
+                },
+                "required": ["users_data"]
+            }
+        ),
+        Tool(
+            name="get_admin_user_login_history",
+            description="Lấy lịch sử đăng nhập của user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "default": 50
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "description": "Ngày bắt đầu (YYYY-MM-DD)"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "description": "Ngày kết thúc (YYYY-MM-DD)"
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
+        Tool(
+            name="get_admin_user_activity_log",
+            description="Lấy nhật ký hoạt động của user",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "string",
+                        "description": "ID của user"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "default": 50
+                    },
+                    "activity_type": {
+                        "type": "string",
+                        "description": "Loại hoạt động cần lọc"
+                    },
+                    "start_date": {
+                        "type": "string",
+                        "description": "Ngày bắt đầu (YYYY-MM-DD)"
+                    },
+                    "end_date": {
+                        "type": "string",
+                        "description": "Ngày kết thúc (YYYY-MM-DD)"
+                    }
+                },
+                "required": ["user_id"]
+            }
+        ),
         
         # ==================== ADMIN MANAGEMENT - PERMISSIONS ====================
         Tool(
@@ -2213,7 +2972,149 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
             elif name == "get_ticket_comments":
                 ticket_id = arguments["ticket_id"]
                 result = await client.get_ticket_comments(ticket_id)
-                
+
+            # ==================== ADVANCED REQUEST MANAGEMENT ====================
+
+            elif name == "assign_request":
+                request_id = arguments["request_id"]
+                technician_id = arguments["technician_id"]
+                group_id = arguments.get("group_id")
+                result = await client.assign_request(request_id, technician_id, group_id)
+
+            elif name == "reassign_request":
+                request_id = arguments["request_id"]
+                technician_id = arguments["technician_id"]
+                reason = arguments.get("reason")
+                result = await client.reassign_request(request_id, technician_id, reason)
+
+            elif name == "escalate_request":
+                request_id = arguments["request_id"]
+                escalation_level = arguments["escalation_level"]
+                reason = arguments["reason"]
+                result = await client.escalate_request(request_id, escalation_level, reason)
+
+            elif name == "approve_request":
+                request_id = arguments["request_id"]
+                approval_comments = arguments.get("approval_comments")
+                result = await client.approve_request(request_id, approval_comments)
+
+            elif name == "reject_request":
+                request_id = arguments["request_id"]
+                rejection_reason = arguments["rejection_reason"]
+                comments = arguments.get("comments")
+                result = await client.reject_request(request_id, rejection_reason, comments)
+
+            elif name == "get_request_approvals":
+                request_id = arguments["request_id"]
+                result = await client.get_request_approvals(request_id)
+
+            elif name == "get_request_attachments":
+                request_id = arguments["request_id"]
+                result = await client.get_request_attachments(request_id)
+
+            elif name == "add_request_attachment":
+                request_id = arguments["request_id"]
+                file_path = arguments["file_path"]
+                description = arguments.get("description")
+                result = await client.add_request_attachment(request_id, file_path, description)
+
+            elif name == "delete_request_attachment":
+                request_id = arguments["request_id"]
+                attachment_id = arguments["attachment_id"]
+                result = await client.delete_request_attachment(request_id, attachment_id)
+
+            elif name == "get_request_history":
+                request_id = arguments["request_id"]
+                limit = arguments.get("limit", 50)
+                result = await client.get_request_history(request_id, limit)
+
+            elif name == "get_request_sla_details":
+                request_id = arguments["request_id"]
+                result = await client.get_request_sla_details(request_id)
+
+            elif name == "update_request_sla":
+                request_id = arguments["request_id"]
+                sla_data = arguments["sla_data"]
+                result = await client.update_request_sla(request_id, sla_data)
+
+            elif name == "get_request_templates":
+                category = arguments.get("category")
+                result = await client.get_request_templates(category)
+
+            elif name == "create_request_from_template":
+                template_id = arguments["template_id"]
+                request_data = arguments["request_data"]
+                result = await client.create_request_from_template(template_id, request_data)
+
+            elif name == "close_request":
+                request_id = arguments["request_id"]
+                closure_code = arguments["closure_code"]
+                resolution = arguments["resolution"]
+                result = await client.close_request(request_id, closure_code, resolution)
+
+            elif name == "get_closure_codes":
+                result = await client.get_closure_codes()
+
+            elif name == "get_request_worklog":
+                request_id = arguments["request_id"]
+                limit = arguments.get("limit", 50)
+                result = await client.get_request_worklog(request_id, limit)
+
+            elif name == "add_worklog_entry":
+                request_id = arguments["request_id"]
+                description = arguments["description"]
+                time_spent = arguments.get("time_spent")
+                technician_id = arguments.get("technician_id")
+                result = await client.add_worklog_entry(request_id, description, time_spent, technician_id)
+
+            elif name == "update_worklog_entry":
+                request_id = arguments["request_id"]
+                worklog_id = arguments["worklog_id"]
+                update_data = arguments["update_data"]
+                result = await client.update_worklog_entry(request_id, worklog_id, update_data)
+
+            elif name == "get_request_custom_fields":
+                request_id = arguments["request_id"]
+                result = await client.get_request_custom_fields(request_id)
+
+            elif name == "update_request_custom_fields":
+                request_id = arguments["request_id"]
+                custom_fields = arguments["custom_fields"]
+                result = await client.update_request_custom_fields(request_id, custom_fields)
+
+            elif name == "get_request_feedback":
+                request_id = arguments["request_id"]
+                result = await client.get_request_feedback(request_id)
+
+            elif name == "submit_request_feedback":
+                request_id = arguments["request_id"]
+                rating = arguments["rating"]
+                comments = arguments.get("comments")
+                survey_responses = arguments.get("survey_responses")
+                result = await client.submit_request_feedback(request_id, rating, comments, survey_responses)
+
+            elif name == "get_request_notifications":
+                request_id = arguments["request_id"]
+                result = await client.get_request_notifications(request_id)
+
+            elif name == "send_request_notification":
+                request_id = arguments["request_id"]
+                notification_type = arguments["notification_type"]
+                recipients = arguments["recipients"]
+                custom_message = arguments.get("custom_message")
+                result = await client.send_request_notification(request_id, notification_type, recipients, custom_message)
+
+            # ==================== REFERENCE DATA ====================
+
+            elif name == "get_categories":
+                result = await client.get_categories()
+
+            elif name == "get_priorities":
+                result = await client.get_priorities()
+
+            elif name == "get_statuses":
+                result = await client.get_statuses()
+
             # ==================== USER MANAGEMENT ====================
             elif name == "list_users":
                 limit = arguments.get("limit", 50)
@@ -2532,7 +3433,87 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
                 
             elif name == "get_technician_roles":
                 result = await client.get_technician_roles()
-                
+
+            elif name == "convert_user_to_technician":
+                user_id = arguments["user_id"]
+                technician_data = arguments.get("technician_data")
+                delete_user_after_conversion = arguments.get("delete_user_after_conversion", False)
+                result = await client.convert_user_to_technician(
+                    user_id=user_id,
+                    technician_data=technician_data,
+                    delete_user_after_conversion=delete_user_after_conversion
+                )
+
+            elif name == "activate_admin_user":
+                user_id = arguments["user_id"]
+                result = await client.activate_admin_user(user_id)
+
+            elif name == "deactivate_admin_user":
+                user_id = arguments["user_id"]
+                result = await client.deactivate_admin_user(user_id)
+
+            elif name == "lock_admin_user":
+                user_id = arguments["user_id"]
+                result = await client.lock_admin_user(user_id)
+
+            elif name == "unlock_admin_user":
+                user_id = arguments["user_id"]
+                result = await client.unlock_admin_user(user_id)
+
+            elif name == "reset_admin_user_password":
+                user_id = arguments["user_id"]
+                new_password = arguments["new_password"]
+                result = await client.reset_admin_user_password(user_id, new_password)
+
+            elif name == "update_admin_user_profile":
+                user_id = arguments["user_id"]
+                profile_data = arguments["profile_data"]
+                result = await client.update_admin_user_profile(user_id, profile_data)
+
+            elif name == "search_admin_users":
+                query = arguments["query"]
+                limit = arguments.get("limit", 50)
+                search_fields = arguments.get("search_fields")
+                result = await client.search_admin_users(query, limit=limit, search_fields=search_fields)
+
+            elif name == "get_admin_user_groups":
+                user_id = arguments["user_id"]
+                result = await client.get_admin_user_groups(user_id)
+
+            elif name == "add_admin_user_to_group":
+                user_id = arguments["user_id"]
+                group_id = arguments["group_id"]
+                result = await client.add_admin_user_to_group(user_id, group_id)
+
+            elif name == "remove_admin_user_from_group":
+                user_id = arguments["user_id"]
+                group_id = arguments["group_id"]
+                result = await client.remove_admin_user_from_group(user_id, group_id)
+
+            elif name == "bulk_create_admin_users":
+                users_data = arguments["users_data"]
+                result = await client.bulk_create_admin_users(users_data)
+
+            elif name == "get_admin_user_login_history":
+                user_id = arguments["user_id"]
+                limit = arguments.get("limit", 50)
+                start_date = arguments.get("start_date")
+                end_date = arguments.get("end_date")
+                result = await client.get_admin_user_login_history(
+                    user_id, limit=limit, start_date=start_date, end_date=end_date
+                )
+
+            elif name == "get_admin_user_activity_log":
+                user_id = arguments["user_id"]
+                limit = arguments.get("limit", 50)
+                activity_type = arguments.get("activity_type")
+                start_date = arguments.get("start_date")
+                end_date = arguments.get("end_date")
+                result = await client.get_admin_user_activity_log(
+                    user_id, limit=limit, activity_type=activity_type,
+                    start_date=start_date, end_date=end_date
+                )
+
             # ==================== ADMIN MANAGEMENT - PERMISSIONS ====================
             elif name == "get_permissions":
                 result = await client.get_permissions()
@@ -2629,7 +3610,18 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
                 
             elif name == "update_notification_settings":
                 result = await client.update_notification_settings(arguments["settings"])
-                
+
+            # ==================== REFERENCE DATA ====================
+
+            elif name == "get_categories":
+                result = await client.get_categories()
+
+            elif name == "get_priorities":
+                result = await client.get_priorities()
+
+            elif name == "get_statuses":
+                result = await client.get_statuses()
+
             else:
                 result = {"error": f"Unknown tool: {name}"}
         
@@ -2678,4 +3670,4 @@ async def main():
         )
 
 if __name__ == "__main__":
-    asyncio.run(main()) 
+    asyncio.run(main())
