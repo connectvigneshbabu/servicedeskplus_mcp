@@ -36,41 +36,41 @@ async def handle_list_tools() -> ListToolsResult:
         # ==================== TICKET MANAGEMENT ====================
         Tool(
             name="list_tickets",
-            description="Lấy danh sách tickets từ ServiceDesk Plus với các bộ lọc tùy chọn",
+            description="Get list of tickets from ServiceDesk Plus with optional filters",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng tickets tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of tickets (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái ticket",
+                        "description": "Filter by ticket status",
                         "enum": ["open", "pending", "resolved", "closed", "cancelled", "on_hold"]
                     },
                     "priority": {
                         "type": "string",
-                        "description": "Lọc theo mức độ ưu tiên",
+                        "description": "Filter by priority",
                         "enum": ["low", "medium", "high", "critical"]
                     },
                     "requester": {
                         "type": "string",
-                        "description": "Lọc theo người yêu cầu (email hoặc ID)"
+                        "description": "Filter by requester (email or ID)"
                     }
                 }
             }
         ),
         Tool(
             name="get_ticket",
-            description="Lấy thông tin chi tiết của một ticket theo ID",
+            description="Get detailed information about a ticket by ID",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ticket_id": {
                         "type": "string",
-                        "description": "ID của ticket cần lấy thông tin"
+                        "description": "ID of the ticket to get information"
                     }
                 },
                 "required": ["ticket_id"]
@@ -78,34 +78,34 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_ticket",
-            description="Tạo ticket mới trong ServiceDesk Plus",
+            description="Create a new ticket in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "subject": {
                         "type": "string",
-                        "description": "Tiêu đề của ticket"
+                        "description": "Title of the ticket"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết của ticket"
+                        "description": "Detailed description of the ticket"
                     },
                     "requester": {
                         "type": "string",
-                        "description": "Email hoặc ID của người yêu cầu"
+                        "description": "Email or ID of the requester"
                     },
                     "priority": {
                         "type": "string",
-                        "description": "Mức độ ưu tiên",
+                        "description": "Priority level",
                         "enum": ["low", "medium", "high", "critical"]
                     },
                     "category": {
                         "type": "string",
-                        "description": "Danh mục của ticket"
+                        "description": "Category of the ticket"
                     },
                     "technician": {
                         "type": "string",
-                        "description": "ID của technician được gán"
+                        "description": "ID of the assigned technician"
                     }
                 },
                 "required": ["subject", "description", "requester"]
@@ -113,35 +113,35 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_ticket",
-            description="Cập nhật thông tin của một ticket",
+            description="Update information of a ticket",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ticket_id": {
                         "type": "string",
-                        "description": "ID của ticket cần cập nhật"
+                        "description": "ID of the ticket to update"
                     },
                     "subject": {
                         "type": "string",
-                        "description": "Tiêu đề mới của ticket"
+                        "description": "New title of the ticket"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả mới của ticket"
+                        "description": "New description of the ticket"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái mới",
+                        "description": "New status",
                         "enum": ["open", "pending", "resolved", "closed", "cancelled", "on_hold"]
                     },
                     "priority": {
                         "type": "string",
-                        "description": "Mức độ ưu tiên mới",
+                        "description": "New priority level",
                         "enum": ["low", "medium", "high", "critical"]
                     },
                     "technician": {
                         "type": "string",
-                        "description": "ID của technician mới được gán"
+                        "description": "ID of the new assigned technician"
                     }
                 },
                 "required": ["ticket_id"]
@@ -149,13 +149,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_ticket",
-            description="Xóa một ticket",
+            description="Delete a ticket",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ticket_id": {
                         "type": "string",
-                        "description": "ID của ticket cần xóa"
+                        "description": "ID of the ticket to delete"
                     }
                 },
                 "required": ["ticket_id"]
@@ -163,17 +163,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="search_tickets",
-            description="Tìm kiếm tickets theo từ khóa",
+            description="Search tickets by keyword",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "Từ khóa tìm kiếm"
+                        "description": "Search keyword"
                     },
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng kết quả tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of results (default: 50, maximum: 1000)",
                         "default": 50
                     }
                 },
@@ -182,17 +182,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="add_ticket_comment",
-            description="Thêm comment vào một ticket",
+            description="Add comment to a ticket",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ticket_id": {
                         "type": "string",
-                        "description": "ID của ticket"
+                        "description": "ID of the ticket"
                     },
                     "comment": {
                         "type": "string",
-                        "description": "Nội dung comment"
+                        "description": "Content of the comment"
                     }
                 },
                 "required": ["ticket_id", "comment"]
@@ -200,13 +200,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_ticket_comments",
-            description="Lấy danh sách comments của một ticket",
+            description="Get list of comments of a ticket",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ticket_id": {
                         "type": "string",
-                        "description": "ID của ticket"
+                        "description": "ID of the ticket"
                     }
                 },
                 "required": ["ticket_id"]
@@ -217,21 +217,21 @@ async def handle_list_tools() -> ListToolsResult:
 
         Tool(
             name="assign_request",
-            description="Gán request cho technician và group",
+            description="Assign request to technician and group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request cần gán"
+                        "description": "ID of the request to assign"
                     },
                     "technician_id": {
                         "type": "string",
-                        "description": "ID của technician"
+                        "description": "ID of the technician"
                     },
                     "group_id": {
                         "type": "string",
-                        "description": "ID của group (tùy chọn)"
+                        "description": "ID of the group (optional)"
                     }
                 },
                 "required": ["request_id", "technician_id"]
@@ -239,21 +239,21 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="reassign_request",
-            description="Gán lại request cho technician khác",
+            description="Reassign request to another technician",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request cần gán lại"
+                        "description": "ID of the request to reassign"
                     },
                     "technician_id": {
                         "type": "string",
-                        "description": "ID của technician mới"
+                        "description": "ID of the new technician"
                     },
                     "reason": {
                         "type": "string",
-                        "description": "Lý do gán lại (tùy chọn)"
+                        "description": "Reason for reassignment (optional)"
                     }
                 },
                 "required": ["request_id", "technician_id"]
@@ -261,21 +261,21 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="escalate_request",
-            description="Escalate request lên cấp cao hơn",
+            description="Escalate request to a higher level",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request cần escalate"
+                        "description": "ID of the request to escalate"
                     },
                     "escalation_level": {
                         "type": "string",
-                        "description": "Cấp độ escalate"
+                        "description": "Escalation level"
                     },
                     "reason": {
                         "type": "string",
-                        "description": "Lý do escalate"
+                        "description": "Reason for escalation"
                     }
                 },
                 "required": ["request_id", "escalation_level", "reason"]
@@ -283,17 +283,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="approve_request",
-            description="Phê duyệt request",
+            description="Approve request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request cần phê duyệt"
+                        "description": "ID of the request to approve"
                     },
                     "approval_comments": {
                         "type": "string",
-                        "description": "Comments phê duyệt (tùy chọn)"
+                        "description": "Approval comments (optional)"
                     }
                 },
                 "required": ["request_id"]
@@ -301,21 +301,21 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="reject_request",
-            description="Từ chối request",
+            description="Reject request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request cần từ chối"
+                        "description": "ID of the request to reject"
                     },
                     "rejection_reason": {
                         "type": "string",
-                        "description": "Lý do từ chối"
+                        "description": "Reason for rejection"
                     },
                     "comments": {
                         "type": "string",
-                        "description": "Comments bổ sung (tùy chọn)"
+                        "description": "Additional comments (optional)"
                     }
                 },
                 "required": ["request_id", "rejection_reason"]
@@ -323,13 +323,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_approvals",
-            description="Lấy thông tin phê duyệt của request",
+            description="Get approval information of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     }
                 },
                 "required": ["request_id"]
@@ -337,13 +337,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_attachments",
-            description="Lấy danh sách attachments của request",
+            description="Get list of attachments of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     }
                 },
                 "required": ["request_id"]
@@ -351,21 +351,21 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="add_request_attachment",
-            description="Thêm attachment vào request",
+            description="Add attachment to request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "file_path": {
                         "type": "string",
-                        "description": "Đường dẫn file cần upload"
+                        "description": "File path to upload"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả attachment (tùy chọn)"
+                        "description": "Description of attachment (optional)"
                     }
                 },
                 "required": ["request_id", "file_path"]
@@ -373,17 +373,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_request_attachment",
-            description="Xóa attachment khỏi request",
+            description="Delete attachment from request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "attachment_id": {
                         "type": "string",
-                        "description": "ID của attachment cần xóa"
+                        "description": "ID of the attachment to delete"
                     }
                 },
                 "required": ["request_id", "attachment_id"]
@@ -391,17 +391,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_history",
-            description="Lấy lịch sử/timeline của request",
+            description="Get history/timeline of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of records (default: 50, maximum: 1000)",
                         "default": 50
                     }
                 },
@@ -410,13 +410,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_sla_details",
-            description="Lấy thông tin SLA của request",
+            description="Get SLA information of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     }
                 },
                 "required": ["request_id"]
@@ -424,17 +424,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_request_sla",
-            description="Cập nhật SLA cho request",
+            description="Update SLA for request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "sla_data": {
                         "type": "object",
-                        "description": "Dữ liệu SLA cần cập nhật"
+                        "description": "SLA data to update"
                     }
                 },
                 "required": ["request_id", "sla_data"]
@@ -442,30 +442,30 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_templates",
-            description="Lấy danh sách request templates có sẵn",
+            description="Get list of available request templates",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "category": {
                         "type": "string",
-                        "description": "Lọc theo category (tùy chọn)"
+                        "description": "Filter by category (optional)"
                     }
                 }
             }
         ),
         Tool(
             name="create_request_from_template",
-            description="Tạo request từ template",
+            description="Create request from template",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "template_id": {
                         "type": "string",
-                        "description": "ID của template"
+                        "description": "ID of the template"
                     },
                     "request_data": {
                         "type": "object",
-                        "description": "Dữ liệu request bổ sung"
+                        "description": "Additional request data"
                     }
                 },
                 "required": ["template_id", "request_data"]
@@ -473,21 +473,21 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="close_request",
-            description="Đóng request với closure code và resolution",
+            description="Close request with closure code and resolution",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request cần đóng"
+                        "description": "ID of the request to close"
                     },
                     "closure_code": {
                         "type": "string",
-                        "description": "Mã đóng request"
+                        "description": "Request closure code"
                     },
                     "resolution": {
                         "type": "string",
-                        "description": "Mô tả giải pháp"
+                        "description": "Resolution description"
                     }
                 },
                 "required": ["request_id", "closure_code", "resolution"]
@@ -495,7 +495,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_closure_codes",
-            description="Lấy danh sách closure codes có sẵn",
+            description="Get list of available closure codes",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -503,17 +503,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_worklog",
-            description="Lấy worklog entries của request",
+            description="Get worklog entries of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of records (default: 50, maximum: 1000)",
                         "default": 50
                     }
                 },
@@ -522,25 +522,25 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="add_worklog_entry",
-            description="Thêm worklog entry vào request",
+            description="Add worklog entry to request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả công việc"
+                        "description": "Description of the work"
                     },
                     "time_spent": {
                         "type": "string",
-                        "description": "Thời gian đã tiêu tốn (tùy chọn)"
+                        "description": "Time spent (optional)"
                     },
                     "technician_id": {
                         "type": "string",
-                        "description": "ID của technician (tùy chọn)"
+                        "description": "ID of the technician (optional)"
                     }
                 },
                 "required": ["request_id", "description"]
@@ -548,21 +548,21 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_worklog_entry",
-            description="Cập nhật worklog entry",
+            description="Update worklog entry",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "worklog_id": {
                         "type": "string",
-                        "description": "ID của worklog entry"
+                        "description": "ID of the worklog entry"
                     },
                     "update_data": {
                         "type": "object",
-                        "description": "Dữ liệu cập nhật"
+                        "description": "Update data"
                     }
                 },
                 "required": ["request_id", "worklog_id", "update_data"]
@@ -570,13 +570,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_custom_fields",
-            description="Lấy custom fields của request",
+            description="Get custom fields of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     }
                 },
                 "required": ["request_id"]
@@ -584,17 +584,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_request_custom_fields",
-            description="Cập nhật custom fields của request",
+            description="Update custom fields of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "custom_fields": {
                         "type": "object",
-                        "description": "Custom fields cần cập nhật"
+                        "description": "Custom fields to update"
                     }
                 },
                 "required": ["request_id", "custom_fields"]
@@ -602,13 +602,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_feedback",
-            description="Lấy feedback/survey của request",
+            description="Get feedback/survey of request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     }
                 },
                 "required": ["request_id"]
@@ -616,25 +616,25 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="submit_request_feedback",
-            description="Gửi feedback cho request",
+            description="Submit feedback for request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "rating": {
                         "type": "integer",
-                        "description": "Đánh giá (1-5)"
+                        "description": "Rating (1-5)"
                     },
                     "comments": {
                         "type": "string",
-                        "description": "Comments (tùy chọn)"
+                        "description": "Comments (optional)"
                     },
                     "survey_responses": {
                         "type": "object",
-                        "description": "Phản hồi khảo sát (tùy chọn)"
+                        "description": "Survey responses (optional)"
                     }
                 },
                 "required": ["request_id", "rating"]
@@ -642,13 +642,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_request_notifications",
-            description="Lấy danh sách notifications đã gửi cho request",
+            description="Get list of notifications sent for request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     }
                 },
                 "required": ["request_id"]
@@ -656,42 +656,42 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="send_request_notification",
-            description="Gửi notification cho request",
+            description="Send notification for request",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "request_id": {
                         "type": "string",
-                        "description": "ID của request"
+                        "description": "ID of the request"
                     },
                     "notification_type": {
                         "type": "string",
-                        "description": "Loại notification"
+                        "description": "Type of notification"
                     },
                     "recipients": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Danh sách email người nhận"
+                        "description": "List of recipient emails"
                     },
                     "custom_message": {
                         "type": "string",
-                        "description": "Tin nhắn tùy chỉnh (tùy chọn)"
+                        "description": "Custom message (optional)"
                     }
                 },
                 "required": ["request_id", "notification_type", "recipients"]
             }
         ),
-        
+
         # ==================== USER MANAGEMENT ====================
         Tool(
             name="list_users",
-            description="Lấy danh sách users từ ServiceDesk Plus",
+            description="Get list of users from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng users tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of users (default: 50, maximum: 1000)",
                         "default": 50
                     }
                 }
@@ -699,13 +699,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_user",
-            description="Lấy thông tin chi tiết của một user",
+            description="Get detailed information about a user",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần lấy thông tin"
+                        "description": "ID of the user to get information"
                     }
                 },
                 "required": ["user_id"]
@@ -713,38 +713,38 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="list_technicians",
-            description="Lấy danh sách technicians từ ServiceDesk Plus",
+            description="Get list of technicians from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng technicians tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of technicians (default: 50, maximum: 1000)",
                         "default": 50
                     }
                 }
             }
         ),
-        
+
         # ==================== CMDB - CONFIGURATION ITEMS ====================
         Tool(
             name="list_configuration_items",
-            description="Lấy danh sách Configuration Items (CIs) từ CMDB",
+            description="Get list of Configuration Items (CIs) from CMDB",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng CIs tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of CIs (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "ci_type": {
                         "type": "string",
-                        "description": "Lọc theo loại CI (server, network_device, software, etc.)"
+                        "description": "Filter by CI type (server, network_device, software, etc.)"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái CI",
+                        "description": "Filter by CI status",
                         "enum": ["active", "inactive", "under_maintenance", "retired"]
                     }
                 }
@@ -752,13 +752,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_configuration_item",
-            description="Lấy thông tin chi tiết của một Configuration Item",
+            description="Get detailed information about a Configuration Item",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ci_id": {
                         "type": "string",
-                        "description": "ID của Configuration Item"
+                        "description": "ID of the Configuration Item"
                     }
                 },
                 "required": ["ci_id"]
@@ -766,34 +766,34 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_configuration_item",
-            description="Tạo Configuration Item mới trong CMDB",
+            description="Create a new Configuration Item in CMDB",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên của Configuration Item"
+                        "description": "Name of the Configuration Item"
                     },
                     "ci_type": {
                         "type": "string",
-                        "description": "Loại CI (server, network_device, software, etc.)"
+                        "description": "CI type (server, network_device, software, etc.)"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết"
+                        "description": "Detailed description"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái",
+                        "description": "Status",
                         "enum": ["active", "inactive", "under_maintenance", "retired"]
                     },
                     "location": {
                         "type": "string",
-                        "description": "Vị trí"
+                        "description": "Location"
                     },
                     "owner": {
                         "type": "string",
-                        "description": "Người sở hữu"
+                        "description": "Owner"
                     }
                 },
                 "required": ["name", "ci_type"]
@@ -801,34 +801,34 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_configuration_item",
-            description="Cập nhật thông tin Configuration Item",
+            description="Update Configuration Item information",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ci_id": {
                         "type": "string",
-                        "description": "ID của Configuration Item"
+                        "description": "ID of the Configuration Item"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới"
+                        "description": "New name"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả mới"
+                        "description": "New description"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái mới",
+                        "description": "New status",
                         "enum": ["active", "inactive", "under_maintenance", "retired"]
                     },
                     "location": {
                         "type": "string",
-                        "description": "Vị trí mới"
+                        "description": "New location"
                     },
                     "owner": {
                         "type": "string",
-                        "description": "Người sở hữu mới"
+                        "description": "New owner"
                     }
                 },
                 "required": ["ci_id"]
@@ -836,13 +836,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_configuration_item",
-            description="Xóa Configuration Item",
+            description="Delete Configuration Item",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ci_id": {
                         "type": "string",
-                        "description": "ID của Configuration Item cần xóa"
+                        "description": "ID of the Configuration Item to delete"
                     }
                 },
                 "required": ["ci_id"]
@@ -850,7 +850,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_ci_types",
-            description="Lấy danh sách các loại Configuration Items có sẵn",
+            description="Get list of available Configuration Item types",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -858,56 +858,56 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_ci_relationships",
-            description="Lấy danh sách relationships của một Configuration Item",
+            description="Get list of relationships of a Configuration Item",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "ci_id": {
                         "type": "string",
-                        "description": "ID của Configuration Item"
+                        "description": "ID of the Configuration Item"
                     }
                 },
                 "required": ["ci_id"]
             }
         ),
-        
+
         # ==================== ASSET MANAGEMENT ====================
         Tool(
             name="list_assets",
-            description="Lấy danh sách assets từ ServiceDesk Plus với bộ lọc",
+            description="Get list of assets from ServiceDesk Plus with filters",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng assets tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of assets (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "asset_type": {
                         "type": "string",
-                        "description": "Lọc theo loại asset"
+                        "description": "Filter by asset type"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái asset",
+                        "description": "Filter by asset status",
                         "enum": ["in_use", "in_stock", "under_maintenance", "retired", "lost", "stolen"]
                     },
                     "location": {
                         "type": "string",
-                        "description": "Lọc theo vị trí"
+                        "description": "Filter by location"
                     }
                 }
             }
         ),
         Tool(
             name="get_asset",
-            description="Lấy thông tin chi tiết của một asset",
+            description="Get detailed information about an asset",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "asset_id": {
                         "type": "string",
-                        "description": "ID của asset cần lấy thông tin"
+                        "description": "ID of the asset to get information"
                     }
                 },
                 "required": ["asset_id"]
@@ -915,38 +915,38 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_asset",
-            description="Tạo asset mới",
+            description="Create a new asset",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên của asset"
+                        "description": "Name of the asset"
                     },
                     "asset_type": {
                         "type": "string",
-                        "description": "Loại asset"
+                        "description": "Asset type"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết"
+                        "description": "Detailed description"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái",
+                        "description": "Status",
                         "enum": ["in_use", "in_stock", "under_maintenance", "retired", "lost", "stolen"]
                     },
                     "location": {
                         "type": "string",
-                        "description": "Vị trí"
+                        "description": "Location"
                     },
                     "assigned_to": {
                         "type": "string",
-                        "description": "Người được gán"
+                        "description": "Assigned to"
                     },
                     "vendor": {
                         "type": "string",
-                        "description": "Nhà cung cấp"
+                        "description": "Vendor"
                     },
                     "model": {
                         "type": "string",
@@ -954,7 +954,7 @@ async def handle_list_tools() -> ListToolsResult:
                     },
                     "serial_number": {
                         "type": "string",
-                        "description": "Số serial"
+                        "description": "Serial number"
                     }
                 },
                 "required": ["name", "asset_type"]
@@ -962,34 +962,34 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_asset",
-            description="Cập nhật thông tin asset",
+            description="Update asset information",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "asset_id": {
                         "type": "string",
-                        "description": "ID của asset"
+                        "description": "ID of the asset"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới"
+                        "description": "New name"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả mới"
+                        "description": "New description"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái mới",
+                        "description": "New status",
                         "enum": ["in_use", "in_stock", "under_maintenance", "retired", "lost", "stolen"]
                     },
                     "location": {
                         "type": "string",
-                        "description": "Vị trí mới"
+                        "description": "New location"
                     },
                     "assigned_to": {
                         "type": "string",
-                        "description": "Người được gán mới"
+                        "description": "New assigned to"
                     }
                 },
                 "required": ["asset_id"]
@@ -997,13 +997,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_asset",
-            description="Xóa asset",
+            description="Delete asset",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "asset_id": {
                         "type": "string",
-                        "description": "ID của asset cần xóa"
+                        "description": "ID of the asset to delete"
                     }
                 },
                 "required": ["asset_id"]
@@ -1011,7 +1011,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_asset_types",
-            description="Lấy danh sách các loại assets có sẵn",
+            description="Get list of available asset types",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -1019,7 +1019,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_asset_categories",
-            description="Lấy danh sách các danh mục assets có sẵn",
+            description="Get list of available asset categories",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -1027,7 +1027,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_asset_locations",
-            description="Lấy danh sách các vị trí assets có sẵn",
+            description="Get list of available asset locations",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -1035,7 +1035,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_asset_models",
-            description="Lấy danh sách các model assets có sẵn",
+            description="Get list of available asset models",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -1043,45 +1043,45 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_asset_vendors",
-            description="Lấy danh sách các vendor assets có sẵn",
+            description="Get list of available asset vendors",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== SOFTWARE LICENSE MANAGEMENT ====================
         Tool(
             name="list_software_licenses",
-            description="Lấy danh sách software licenses",
+            description="Get list of software licenses",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng licenses tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of licenses (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "product": {
                         "type": "string",
-                        "description": "Lọc theo sản phẩm"
+                        "description": "Filter by product"
                     },
                     "vendor": {
                         "type": "string",
-                        "description": "Lọc theo vendor"
+                        "description": "Filter by vendor"
                     }
                 }
             }
         ),
         Tool(
             name="get_software_license",
-            description="Lấy thông tin chi tiết của một software license",
+            description="Get detailed information about a software license",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "license_id": {
                         "type": "string",
-                        "description": "ID của software license"
+                        "description": "ID of the software license"
                     }
                 },
                 "required": ["license_id"]
@@ -1089,37 +1089,37 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_software_license",
-            description="Tạo software license mới",
+            description="Create a new software license",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "product": {
                         "type": "string",
-                        "description": "Tên sản phẩm"
+                        "description": "Product name"
                     },
                     "license_type": {
                         "type": "string",
-                        "description": "Loại license"
+                        "description": "License type"
                     },
                     "total_licenses": {
                         "type": "integer",
-                        "description": "Tổng số licenses"
+                        "description": "Total number of licenses"
                     },
                     "vendor": {
                         "type": "string",
-                        "description": "Nhà cung cấp"
+                        "description": "Vendor"
                     },
                     "purchase_date": {
                         "type": "string",
-                        "description": "Ngày mua (YYYY-MM-DD)"
+                        "description": "Purchase date (YYYY-MM-DD)"
                     },
                     "expiry_date": {
                         "type": "string",
-                        "description": "Ngày hết hạn (YYYY-MM-DD)"
+                        "description": "Expiry date (YYYY-MM-DD)"
                     },
                     "cost": {
                         "type": "number",
-                        "description": "Chi phí"
+                        "description": "Cost"
                     }
                 },
                 "required": ["product", "license_type", "total_licenses"]
@@ -1127,25 +1127,25 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_software_license",
-            description="Cập nhật software license",
+            description="Update software license",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "license_id": {
                         "type": "string",
-                        "description": "ID của software license"
+                        "description": "ID of the software license"
                     },
                     "product": {
                         "type": "string",
-                        "description": "Tên sản phẩm mới"
+                        "description": "New product name"
                     },
                     "total_licenses": {
                         "type": "integer",
-                        "description": "Tổng số licenses mới"
+                        "description": "New total number of licenses"
                     },
                     "expiry_date": {
                         "type": "string",
-                        "description": "Ngày hết hạn mới (YYYY-MM-DD)"
+                        "description": "New expiry date (YYYY-MM-DD)"
                     }
                 },
                 "required": ["license_id"]
@@ -1153,7 +1153,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_software_products",
-            description="Lấy danh sách các software products có sẵn",
+            description="Get list of available software products",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -1161,50 +1161,50 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_license_types",
-            description="Lấy danh sách các license types có sẵn",
+            description="Get list of available license types",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== CONTRACT MANAGEMENT ====================
         Tool(
             name="list_contracts",
-            description="Lấy danh sách contracts",
+            description="Get list of contracts",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng contracts tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of contracts (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "contract_type": {
                         "type": "string",
-                        "description": "Lọc theo loại contract"
+                        "description": "Filter by contract type"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái contract",
+                        "description": "Filter by contract status",
                         "enum": ["active", "expired", "pending", "terminated"]
                     },
                     "vendor": {
                         "type": "string",
-                        "description": "Lọc theo vendor"
+                        "description": "Filter by vendor"
                     }
                 }
             }
         ),
         Tool(
             name="get_contract",
-            description="Lấy thông tin chi tiết của một contract",
+            description="Get detailed information about a contract",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "contract_id": {
                         "type": "string",
-                        "description": "ID của contract"
+                        "description": "ID of the contract"
                     }
                 },
                 "required": ["contract_id"]
@@ -1212,13 +1212,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_contract",
-            description="Tạo contract mới",
+            description="Create a new contract",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên contract"
+                        "description": "Contract name"
                     },
                     "vendor": {
                         "type": "string",
@@ -1226,23 +1226,23 @@ async def handle_list_tools() -> ListToolsResult:
                     },
                     "start_date": {
                         "type": "string",
-                        "description": "Ngày bắt đầu (YYYY-MM-DD)"
+                        "description": "Start date (YYYY-MM-DD)"
                     },
                     "end_date": {
                         "type": "string",
-                        "description": "Ngày kết thúc (YYYY-MM-DD)"
+                        "description": "End date (YYYY-MM-DD)"
                     },
                     "contract_type": {
                         "type": "string",
-                        "description": "Loại contract"
+                        "description": "Contract type"
                     },
                     "value": {
                         "type": "number",
-                        "description": "Giá trị contract"
+                        "description": "Contract value"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết"
+                        "description": "Detailed description"
                     }
                 },
                 "required": ["name", "vendor", "start_date", "end_date"]
@@ -1250,29 +1250,29 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_contract",
-            description="Cập nhật contract",
+            description="Update contract",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "contract_id": {
                         "type": "string",
-                        "description": "ID của contract"
+                        "description": "ID of the contract"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới"
+                        "description": "New name"
                     },
                     "end_date": {
                         "type": "string",
-                        "description": "Ngày kết thúc mới (YYYY-MM-DD)"
+                        "description": "New end date (YYYY-MM-DD)"
                     },
                     "value": {
                         "type": "number",
-                        "description": "Giá trị mới"
+                        "description": "New value"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái mới",
+                        "description": "New status",
                         "enum": ["active", "expired", "pending", "terminated"]
                     }
                 },
@@ -1281,7 +1281,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_contract_types",
-            description="Lấy danh sách các contract types có sẵn",
+            description="Get list of available contract types",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -1289,46 +1289,46 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_contract_vendors",
-            description="Lấy danh sách các contract vendors có sẵn",
+            description="Get list of available contract vendors",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== PURCHASE ORDER MANAGEMENT ====================
         Tool(
             name="list_purchase_orders",
-            description="Lấy danh sách purchase orders",
+            description="Get list of purchase orders",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng POs tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of POs (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái PO",
+                        "description": "Filter by PO status",
                         "enum": ["draft", "pending_approval", "approved", "ordered", "received", "cancelled"]
                     },
                     "vendor": {
                         "type": "string",
-                        "description": "Lọc theo vendor"
+                        "description": "Filter by vendor"
                     }
                 }
             }
         ),
         Tool(
             name="get_purchase_order",
-            description="Lấy thông tin chi tiết của một purchase order",
+            description="Get detailed information about a purchase order",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "po_id": {
                         "type": "string",
-                        "description": "ID của purchase order"
+                        "description": "ID of the purchase order"
                     }
                 },
                 "required": ["po_id"]
@@ -1336,7 +1336,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_purchase_order",
-            description="Tạo purchase order mới",
+            description="Create a new purchase order",
             inputSchema={
                 "type": "object",
                 "properties": {
@@ -1346,7 +1346,7 @@ async def handle_list_tools() -> ListToolsResult:
                     },
                     "items": {
                         "type": "array",
-                        "description": "Danh sách items",
+                        "description": "List of items",
                         "items": {
                             "type": "object",
                             "properties": {
@@ -1358,11 +1358,11 @@ async def handle_list_tools() -> ListToolsResult:
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả"
+                        "description": "Description"
                     },
                     "expected_delivery": {
                         "type": "string",
-                        "description": "Ngày giao hàng dự kiến (YYYY-MM-DD)"
+                        "description": "Expected delivery date (YYYY-MM-DD)"
                     }
                 },
                 "required": ["vendor", "items"]
@@ -1370,22 +1370,22 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_purchase_order",
-            description="Cập nhật purchase order",
+            description="Update purchase order",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "po_id": {
                         "type": "string",
-                        "description": "ID của purchase order"
+                        "description": "ID of the purchase order"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái mới",
+                        "description": "New status",
                         "enum": ["draft", "pending_approval", "approved", "ordered", "received", "cancelled"]
                     },
                     "expected_delivery": {
                         "type": "string",
-                        "description": "Ngày giao hàng dự kiến mới (YYYY-MM-DD)"
+                        "description": "New expected delivery date (YYYY-MM-DD)"
                     }
                 },
                 "required": ["po_id"]
@@ -1393,41 +1393,41 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_po_statuses",
-            description="Lấy danh sách các PO statuses có sẵn",
+            description="Get list of available PO statuses",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== VENDOR MANAGEMENT ====================
         Tool(
             name="list_vendors",
-            description="Lấy danh sách vendors",
+            description="Get list of vendors",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng vendors tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of vendors (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "vendor_type": {
                         "type": "string",
-                        "description": "Lọc theo loại vendor"
+                        "description": "Filter by vendor type"
                     }
                 }
             }
         ),
         Tool(
             name="get_vendor",
-            description="Lấy thông tin chi tiết của một vendor",
+            description="Get detailed information about a vendor",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "vendor_id": {
                         "type": "string",
-                        "description": "ID của vendor"
+                        "description": "ID of the vendor"
                     }
                 },
                 "required": ["vendor_id"]
@@ -1435,13 +1435,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_vendor",
-            description="Tạo vendor mới",
+            description="Create a new vendor",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên vendor"
+                        "description": "Vendor name"
                     },
                     "email": {
                         "type": "string",
@@ -1449,15 +1449,15 @@ async def handle_list_tools() -> ListToolsResult:
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại"
+                        "description": "Phone number"
                     },
                     "address": {
                         "type": "string",
-                        "description": "Địa chỉ"
+                        "description": "Address"
                     },
                     "vendor_type": {
                         "type": "string",
-                        "description": "Loại vendor"
+                        "description": "Vendor type"
                     },
                     "website": {
                         "type": "string",
@@ -1469,29 +1469,29 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_vendor",
-            description="Cập nhật vendor",
+            description="Update vendor",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "vendor_id": {
                         "type": "string",
-                        "description": "ID của vendor"
+                        "description": "ID of the vendor"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới"
+                        "description": "New name"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email mới"
+                        "description": "New email"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại mới"
+                        "description": "New phone number"
                     },
                     "address": {
                         "type": "string",
-                        "description": "Địa chỉ mới"
+                        "description": "New address"
                     }
                 },
                 "required": ["vendor_id"]
@@ -1499,46 +1499,46 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_vendor_types",
-            description="Lấy danh sách các vendor types có sẵn",
+            description="Get list of available vendor types",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== ADMIN MANAGEMENT - SITES ====================
         Tool(
             name="list_sites",
-            description="Lấy danh sách sites từ ServiceDesk Plus",
+            description="Get list of sites from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng sites tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of sites (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "site_type": {
                         "type": "string",
-                        "description": "Lọc theo loại site",
+                        "description": "Filter by site type",
                         "enum": ["headquarters", "branch_office", "data_center", "warehouse", "retail_store", "manufacturing_plant"]
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái site"
+                        "description": "Filter by site status"
                     }
                 }
             }
         ),
         Tool(
             name="get_site",
-            description="Lấy thông tin chi tiết của một site",
+            description="Get detailed information about a site",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site cần lấy thông tin"
+                        "description": "ID of the site to get information"
                     }
                 },
                 "required": ["site_id"]
@@ -1546,50 +1546,50 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_site",
-            description="Tạo site mới trong ServiceDesk Plus",
+            description="Create a new site in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên của site"
+                        "description": "Name of the site"
                     },
                     "site_type": {
                         "type": "string",
-                        "description": "Loại site",
+                        "description": "Site type",
                         "enum": ["headquarters", "branch_office", "data_center", "warehouse", "retail_store", "manufacturing_plant"]
                     },
                     "address": {
                         "type": "string",
-                        "description": "Địa chỉ của site"
+                        "description": "Address of the site"
                     },
                     "city": {
                         "type": "string",
-                        "description": "Thành phố"
+                        "description": "City"
                     },
                     "state": {
                         "type": "string",
-                        "description": "Tỉnh/Bang"
+                        "description": "State/Province"
                     },
                     "country": {
                         "type": "string",
-                        "description": "Quốc gia"
+                        "description": "Country"
                     },
                     "zip_code": {
                         "type": "string",
-                        "description": "Mã bưu điện"
+                        "description": "Zip code"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại"
+                        "description": "Phone number"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email liên hệ"
+                        "description": "Contact email"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết"
+                        "description": "Detailed description"
                     }
                 },
                 "required": ["name", "site_type"]
@@ -1597,54 +1597,54 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_site",
-            description="Cập nhật thông tin của một site",
+            description="Update information of a site",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site cần cập nhật"
+                        "description": "ID of the site to update"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới của site"
+                        "description": "New name of the site"
                     },
                     "site_type": {
                         "type": "string",
-                        "description": "Loại site mới",
+                        "description": "New site type",
                         "enum": ["headquarters", "branch_office", "data_center", "warehouse", "retail_store", "manufacturing_plant"]
                     },
                     "address": {
                         "type": "string",
-                        "description": "Địa chỉ mới"
+                        "description": "New address"
                     },
                     "city": {
                         "type": "string",
-                        "description": "Thành phố mới"
+                        "description": "New city"
                     },
                     "state": {
                         "type": "string",
-                        "description": "Tỉnh/Bang mới"
+                        "description": "New state/province"
                     },
                     "country": {
                         "type": "string",
-                        "description": "Quốc gia mới"
+                        "description": "New country"
                     },
                     "zip_code": {
                         "type": "string",
-                        "description": "Mã bưu điện mới"
+                        "description": "New zip code"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại mới"
+                        "description": "New phone number"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email liên hệ mới"
+                        "description": "New contact email"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả mới"
+                        "description": "New description"
                     }
                 },
                 "required": ["site_id"]
@@ -1652,13 +1652,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_site",
-            description="Xóa một site",
+            description="Delete a site",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site cần xóa"
+                        "description": "ID of the site to delete"
                     }
                 },
                 "required": ["site_id"]
@@ -1666,46 +1666,46 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_site_types",
-            description="Lấy danh sách các loại site có sẵn",
+            description="Get list of available site types",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== ADMIN MANAGEMENT - USER GROUPS ====================
         Tool(
             name="list_user_groups",
-            description="Lấy danh sách user groups từ ServiceDesk Plus",
+            description="Get list of user groups from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng user groups tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of user groups (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "group_type": {
                         "type": "string",
-                        "description": "Lọc theo loại group",
+                        "description": "Filter by group type",
                         "enum": ["department", "project", "location_based", "role_based", "custom"]
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "Lọc theo site ID"
+                        "description": "Filter by site ID"
                     }
                 }
             }
         ),
         Tool(
             name="get_user_group",
-            description="Lấy thông tin chi tiết của một user group",
+            description="Get detailed information about a user group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "group_id": {
                         "type": "string",
-                        "description": "ID của user group cần lấy thông tin"
+                        "description": "ID of the user group to get information"
                     }
                 },
                 "required": ["group_id"]
@@ -1713,30 +1713,30 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_user_group",
-            description="Tạo user group mới trong ServiceDesk Plus",
+            description="Create a new user group in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên của user group"
+                        "description": "Name of the user group"
                     },
                     "group_type": {
                         "type": "string",
-                        "description": "Loại group",
+                        "description": "Group type",
                         "enum": ["department", "project", "location_based", "role_based", "custom"]
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết"
+                        "description": "Detailed description"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site liên quan"
+                        "description": "ID of the associated site"
                     },
                     "manager": {
                         "type": "string",
-                        "description": "ID của manager"
+                        "description": "ID of the manager"
                     }
                 },
                 "required": ["name", "group_type"]
@@ -1744,34 +1744,34 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_user_group",
-            description="Cập nhật thông tin của một user group",
+            description="Update information of a user group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "group_id": {
                         "type": "string",
-                        "description": "ID của user group cần cập nhật"
+                        "description": "ID of the user group to update"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới của user group"
+                        "description": "New name of the user group"
                     },
                     "group_type": {
                         "type": "string",
-                        "description": "Loại group mới",
+                        "description": "New group type",
                         "enum": ["department", "project", "location_based", "role_based", "custom"]
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả mới"
+                        "description": "New description"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site liên quan mới"
+                        "description": "New associated site ID"
                     },
                     "manager": {
                         "type": "string",
-                        "description": "ID của manager mới"
+                        "description": "New manager ID"
                     }
                 },
                 "required": ["group_id"]
@@ -1779,13 +1779,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_user_group",
-            description="Xóa một user group",
+            description="Delete a user group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "group_id": {
                         "type": "string",
-                        "description": "ID của user group cần xóa"
+                        "description": "ID of the user group to delete"
                     }
                 },
                 "required": ["group_id"]
@@ -1793,7 +1793,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_group_types",
-            description="Lấy danh sách các loại user group có sẵn",
+            description="Get list of available user group types",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -1801,13 +1801,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_group_permissions",
-            description="Lấy danh sách permissions của một user group",
+            description="Get list of permissions of a user group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "group_id": {
                         "type": "string",
-                        "description": "ID của user group"
+                        "description": "ID of the user group"
                     }
                 },
                 "required": ["group_id"]
@@ -1815,17 +1815,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_group_permissions",
-            description="Cập nhật permissions cho một user group",
+            description="Update permissions for a user group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "group_id": {
                         "type": "string",
-                        "description": "ID của user group"
+                        "description": "ID of the user group"
                     },
                     "permissions": {
                         "type": "object",
-                        "description": "Object chứa các permissions với level tương ứng",
+                        "description": "Object containing permissions with corresponding levels",
                         "additionalProperties": {
                             "type": "string",
                             "enum": ["none", "read", "write", "admin"]
@@ -1835,45 +1835,45 @@ async def handle_list_tools() -> ListToolsResult:
                 "required": ["group_id", "permissions"]
             }
         ),
-        
+
         # ==================== ADMIN MANAGEMENT - USERS & TECHNICIANS ====================
         Tool(
             name="list_admin_users",
-            description="Lấy danh sách users (admin) từ ServiceDesk Plus",
+            description="Get list of users (admin) from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng users tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of users (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái user",
+                        "description": "Filter by user status",
                         "enum": ["active", "inactive", "locked", "pending_activation"]
                     },
                     "role": {
                         "type": "string",
-                        "description": "Lọc theo role",
+                        "description": "Filter by role",
                         "enum": ["admin", "manager", "technician", "user", "viewer"]
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "Lọc theo site ID"
+                        "description": "Filter by site ID"
                     }
                 }
             }
         ),
         Tool(
             name="get_admin_user",
-            description="Lấy thông tin chi tiết của một user (admin)",
+            description="Get detailed information about a user (admin)",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần lấy thông tin"
+                        "description": "ID of the user to get information"
                     }
                 },
                 "required": ["user_id"]
@@ -1881,50 +1881,50 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_admin_user",
-            description="Tạo user mới (admin) trong ServiceDesk Plus",
+            description="Create a new user (admin) in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "username": {
                         "type": "string",
-                        "description": "Tên đăng nhập"
+                        "description": "Username"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email của user"
+                        "description": "Email of the user"
                     },
                     "first_name": {
                         "type": "string",
-                        "description": "Tên"
+                        "description": "First name"
                     },
                     "last_name": {
                         "type": "string",
-                        "description": "Họ"
+                        "description": "Last name"
                     },
                     "password": {
                         "type": "string",
-                        "description": "Mật khẩu"
+                        "description": "Password"
                     },
                     "role": {
                         "type": "string",
-                        "description": "Role của user",
+                        "description": "Role of the user",
                         "enum": ["admin", "manager", "technician", "user", "viewer"]
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site"
+                        "description": "ID of the site"
                     },
                     "department": {
                         "type": "string",
-                        "description": "Phòng ban"
+                        "description": "Department"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại"
+                        "description": "Phone number"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái",
+                        "description": "Status",
                         "enum": ["active", "inactive", "locked", "pending_activation"]
                     }
                 },
@@ -1933,50 +1933,50 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_admin_user",
-            description="Cập nhật thông tin của một user (admin)",
+            description="Update information of a user (admin)",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần cập nhật"
+                        "description": "ID of the user to update"
                     },
                     "username": {
                         "type": "string",
-                        "description": "Tên đăng nhập mới"
+                        "description": "New username"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email mới"
+                        "description": "New email"
                     },
                     "first_name": {
                         "type": "string",
-                        "description": "Tên mới"
+                        "description": "New first name"
                     },
                     "last_name": {
                         "type": "string",
-                        "description": "Họ mới"
+                        "description": "New last name"
                     },
                     "role": {
                         "type": "string",
-                        "description": "Role mới",
+                        "description": "New role",
                         "enum": ["admin", "manager", "technician", "user", "viewer"]
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site mới"
+                        "description": "New site ID"
                     },
                     "department": {
                         "type": "string",
-                        "description": "Phòng ban mới"
+                        "description": "New department"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại mới"
+                        "description": "New phone number"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái mới",
+                        "description": "New status",
                         "enum": ["active", "inactive", "locked", "pending_activation"]
                     }
                 },
@@ -1985,13 +1985,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_admin_user",
-            description="Xóa một user (admin)",
+            description="Delete a user (admin)",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần xóa"
+                        "description": "ID of the user to delete"
                     }
                 },
                 "required": ["user_id"]
@@ -1999,41 +1999,41 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="list_admin_technicians",
-            description="Lấy danh sách technicians (admin) từ ServiceDesk Plus",
+            description="Get list of technicians (admin) from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng technicians tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of technicians (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "status": {
                         "type": "string",
-                        "description": "Lọc theo trạng thái technician",
+                        "description": "Filter by technician status",
                         "enum": ["active", "inactive", "locked", "pending_activation"]
                     },
                     "role": {
                         "type": "string",
-                        "description": "Lọc theo role",
+                        "description": "Filter by role",
                         "enum": ["admin", "manager", "technician", "user", "viewer"]
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "Lọc theo site ID"
+                        "description": "Filter by site ID"
                     }
                 }
             }
         ),
         Tool(
             name="get_admin_technician",
-            description="Lấy thông tin chi tiết của một technician (admin)",
+            description="Get detailed information about a technician (admin)",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "technician_id": {
                         "type": "string",
-                        "description": "ID của technician cần lấy thông tin"
+                        "description": "ID of the technician to get information"
                     }
                 },
                 "required": ["technician_id"]
@@ -2041,61 +2041,61 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_admin_technician",
-            description="Tạo technician mới (admin) trong ServiceDesk Plus",
+            description="Create a new technician (admin) in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "username": {
                         "type": "string",
-                        "description": "Tên đăng nhập"
+                        "description": "Username"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email của technician"
+                        "description": "Email of the technician"
                     },
                     "first_name": {
                         "type": "string",
-                        "description": "Tên"
+                        "description": "First name"
                     },
                     "last_name": {
                         "type": "string",
-                        "description": "Họ"
+                        "description": "Last name"
                     },
                     "password": {
                         "type": "string",
-                        "description": "Mật khẩu"
+                        "description": "Password"
                     },
                     "role": {
                         "type": "string",
-                        "description": "Role của technician",
+                        "description": "Role of the technician",
                         "enum": ["admin", "manager", "technician", "user", "viewer"]
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site"
+                        "description": "ID of the site"
                     },
                     "department": {
                         "type": "string",
-                        "description": "Phòng ban"
+                        "description": "Department"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại"
+                        "description": "Phone number"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái",
+                        "description": "Status",
                         "enum": ["active", "inactive", "locked", "pending_activation"]
                     },
                     "skills": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Danh sách kỹ năng"
+                        "description": "List of skills"
                     },
                     "specializations": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Danh sách chuyên môn"
+                        "description": "List of specializations"
                     }
                 },
                 "required": ["username", "email", "first_name", "last_name"]
@@ -2103,61 +2103,61 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_admin_technician",
-            description="Cập nhật thông tin của một technician (admin)",
+            description="Update information of a technician (admin)",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "technician_id": {
                         "type": "string",
-                        "description": "ID của technician cần cập nhật"
+                        "description": "ID of the technician to update"
                     },
                     "username": {
                         "type": "string",
-                        "description": "Tên đăng nhập mới"
+                        "description": "New username"
                     },
                     "email": {
                         "type": "string",
-                        "description": "Email mới"
+                        "description": "New email"
                     },
                     "first_name": {
                         "type": "string",
-                        "description": "Tên mới"
+                        "description": "New first name"
                     },
                     "last_name": {
                         "type": "string",
-                        "description": "Họ mới"
+                        "description": "New last name"
                     },
                     "role": {
                         "type": "string",
-                        "description": "Role mới",
+                        "description": "New role",
                         "enum": ["admin", "manager", "technician", "user", "viewer"]
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site mới"
+                        "description": "New site ID"
                     },
                     "department": {
                         "type": "string",
-                        "description": "Phòng ban mới"
+                        "description": "New department"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Số điện thoại mới"
+                        "description": "New phone number"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Trạng thái mới",
+                        "description": "New status",
                         "enum": ["active", "inactive", "locked", "pending_activation"]
                     },
                     "skills": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Danh sách kỹ năng mới"
+                        "description": "New list of skills"
                     },
                     "specializations": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Danh sách chuyên môn mới"
+                        "description": "New list of specializations"
                     }
                 },
                 "required": ["technician_id"]
@@ -2165,13 +2165,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_admin_technician",
-            description="Xóa một technician (admin)",
+            description="Delete a technician (admin)",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "technician_id": {
                         "type": "string",
-                        "description": "ID của technician cần xóa"
+                        "description": "ID of the technician to delete"
                     }
                 },
                 "required": ["technician_id"]
@@ -2179,7 +2179,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_user_roles",
-            description="Lấy danh sách các user roles có sẵn",
+            description="Get list of available user roles",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2187,7 +2187,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_technician_roles",
-            description="Lấy danh sách các technician roles có sẵn",
+            description="Get list of available technician roles",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2195,22 +2195,22 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="convert_user_to_technician",
-            description="Chuyển đổi user thành technician trong ServiceDesk Plus",
+            description="Convert user to technician in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần chuyển đổi thành technician"
+                        "description": "ID of the user to convert to technician"
                     },
                     "technician_data": {
                         "type": "object",
-                        "description": "Dữ liệu bổ sung cho technician (tùy chọn)",
+                        "description": "Additional data for technician (optional)",
                         "additionalProperties": True
                     },
                     "delete_user_after_conversion": {
                         "type": "boolean",
-                        "description": "Có xóa user sau khi chuyển đổi thành technician hay không",
+                        "description": "Whether to delete the user after converting to technician",
                         "default": False
                     }
                 },
@@ -2219,13 +2219,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="activate_admin_user",
-            description="Kích hoạt tài khoản user",
+            description="Activate user account",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần kích hoạt"
+                        "description": "ID of the user to activate"
                     }
                 },
                 "required": ["user_id"]
@@ -2233,13 +2233,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="deactivate_admin_user",
-            description="Vô hiệu hóa tài khoản user",
+            description="Deactivate user account",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần vô hiệu hóa"
+                        "description": "ID of the user to deactivate"
                     }
                 },
                 "required": ["user_id"]
@@ -2247,13 +2247,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="lock_admin_user",
-            description="Khóa tài khoản user",
+            description="Lock user account",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần khóa"
+                        "description": "ID of the user to lock"
                     }
                 },
                 "required": ["user_id"]
@@ -2261,13 +2261,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="unlock_admin_user",
-            description="Mở khóa tài khoản user",
+            description="Unlock user account",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần mở khóa"
+                        "description": "ID of the user to unlock"
                     }
                 },
                 "required": ["user_id"]
@@ -2275,17 +2275,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="reset_admin_user_password",
-            description="Reset mật khẩu của user",
+            description="Reset user password",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần reset mật khẩu"
+                        "description": "ID of the user to reset password"
                     },
                     "new_password": {
                         "type": "string",
-                        "description": "Mật khẩu mới"
+                        "description": "New password"
                     }
                 },
                 "required": ["user_id", "new_password"]
@@ -2293,28 +2293,28 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_admin_user_profile",
-            description="Cập nhật thông tin profile của user",
+            description="Update user profile information",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user cần cập nhật"
+                        "description": "ID of the user to update"
                     },
                     "profile_data": {
                         "type": "object",
-                        "description": "Dữ liệu profile cần cập nhật",
+                        "description": "Profile data to update",
                         "properties": {
-                            "first_name": {"type": "string", "description": "Tên"},
-                            "last_name": {"type": "string", "description": "Họ"},
+                            "first_name": {"type": "string", "description": "First name"},
+                            "last_name": {"type": "string", "description": "Last name"},
                             "email": {"type": "string", "description": "Email"},
-                            "phone": {"type": "string", "description": "Số điện thoại"},
-                            "department": {"type": "string", "description": "Phòng ban"},
-                            "job_title": {"type": "string", "description": "Chức vụ"},
-                            "employee_id": {"type": "string", "description": "Mã nhân viên"},
-                            "location": {"type": "string", "description": "Vị trí"},
-                            "manager": {"type": "string", "description": "Quản lý"},
-                            "cost_center": {"type": "string", "description": "Trung tâm chi phí"}
+                            "phone": {"type": "string", "description": "Phone number"},
+                            "department": {"type": "string", "description": "Department"},
+                            "job_title": {"type": "string", "description": "Job title"},
+                            "employee_id": {"type": "string", "description": "Employee ID"},
+                            "location": {"type": "string", "description": "Location"},
+                            "manager": {"type": "string", "description": "Manager"},
+                            "cost_center": {"type": "string", "description": "Cost center"}
                         }
                     }
                 },
@@ -2323,23 +2323,23 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="search_admin_users",
-            description="Tìm kiếm users theo từ khóa",
+            description="Search users by keyword",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "query": {
                         "type": "string",
-                        "description": "Từ khóa tìm kiếm"
+                        "description": "Search keyword"
                     },
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng kết quả tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of results (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "search_fields": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Các trường cần tìm kiếm (tùy chọn)"
+                        "description": "Fields to search in (optional)"
                     }
                 },
                 "required": ["query"]
@@ -2347,13 +2347,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_admin_user_groups",
-            description="Lấy danh sách groups mà user thuộc về",
+            description="Get list of groups that user belongs to",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user"
+                        "description": "ID of the user"
                     }
                 },
                 "required": ["user_id"]
@@ -2361,17 +2361,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="add_admin_user_to_group",
-            description="Thêm user vào group",
+            description="Add user to group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user"
+                        "description": "ID of the user"
                     },
                     "group_id": {
                         "type": "string",
-                        "description": "ID của group"
+                        "description": "ID of the group"
                     }
                 },
                 "required": ["user_id", "group_id"]
@@ -2379,17 +2379,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="remove_admin_user_from_group",
-            description="Xóa user khỏi group",
+            description="Remove user from group",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user"
+                        "description": "ID of the user"
                     },
                     "group_id": {
                         "type": "string",
-                        "description": "ID của group"
+                        "description": "ID of the group"
                     }
                 },
                 "required": ["user_id", "group_id"]
@@ -2397,24 +2397,24 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="bulk_create_admin_users",
-            description="Tạo nhiều users cùng lúc",
+            description="Create multiple users at once",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "users_data": {
                         "type": "array",
-                        "description": "Danh sách dữ liệu users cần tạo",
+                        "description": "List of user data to create",
                         "items": {
                             "type": "object",
                             "properties": {
-                                "username": {"type": "string", "description": "Tên đăng nhập"},
+                                "username": {"type": "string", "description": "Username"},
                                 "email": {"type": "string", "description": "Email"},
-                                "first_name": {"type": "string", "description": "Tên"},
-                                "last_name": {"type": "string", "description": "Họ"},
-                                "password": {"type": "string", "description": "Mật khẩu"},
-                                "role": {"type": "string", "description": "Vai trò"},
-                                "department": {"type": "string", "description": "Phòng ban"},
-                                "phone": {"type": "string", "description": "Số điện thoại"}
+                                "first_name": {"type": "string", "description": "First name"},
+                                "last_name": {"type": "string", "description": "Last name"},
+                                "password": {"type": "string", "description": "Password"},
+                                "role": {"type": "string", "description": "Role"},
+                                "department": {"type": "string", "description": "Department"},
+                                "phone": {"type": "string", "description": "Phone number"}
                             },
                             "required": ["username", "email", "first_name", "last_name"]
                         },
@@ -2427,26 +2427,26 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_admin_user_login_history",
-            description="Lấy lịch sử đăng nhập của user",
+            description="Get login history of user",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user"
+                        "description": "ID of the user"
                     },
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of records (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "start_date": {
                         "type": "string",
-                        "description": "Ngày bắt đầu (YYYY-MM-DD)"
+                        "description": "Start date (YYYY-MM-DD)"
                     },
                     "end_date": {
                         "type": "string",
-                        "description": "Ngày kết thúc (YYYY-MM-DD)"
+                        "description": "End date (YYYY-MM-DD)"
                     }
                 },
                 "required": ["user_id"]
@@ -2454,40 +2454,40 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_admin_user_activity_log",
-            description="Lấy nhật ký hoạt động của user",
+            description="Get activity log of user",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user"
+                        "description": "ID of the user"
                     },
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng bản ghi tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of records (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "activity_type": {
                         "type": "string",
-                        "description": "Loại hoạt động cần lọc"
+                        "description": "Activity type to filter"
                     },
                     "start_date": {
                         "type": "string",
-                        "description": "Ngày bắt đầu (YYYY-MM-DD)"
+                        "description": "Start date (YYYY-MM-DD)"
                     },
                     "end_date": {
                         "type": "string",
-                        "description": "Ngày kết thúc (YYYY-MM-DD)"
+                        "description": "End date (YYYY-MM-DD)"
                     }
                 },
                 "required": ["user_id"]
             }
         ),
-        
+
         # ==================== ADMIN MANAGEMENT - PERMISSIONS ====================
         Tool(
             name="get_permissions",
-            description="Lấy danh sách tất cả permissions có sẵn",
+            description="Get list of all available permissions",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2495,13 +2495,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_role_permissions",
-            description="Lấy danh sách permissions của một role",
+            description="Get list of permissions of a role",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "role_id": {
                         "type": "string",
-                        "description": "ID của role"
+                        "description": "ID of the role"
                     }
                 },
                 "required": ["role_id"]
@@ -2509,17 +2509,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_role_permissions",
-            description="Cập nhật permissions cho một role",
+            description="Update permissions for a role",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "role_id": {
                         "type": "string",
-                        "description": "ID của role"
+                        "description": "ID of the role"
                     },
                     "permissions": {
                         "type": "object",
-                        "description": "Object chứa các permissions với level tương ứng",
+                        "description": "Object containing permissions with corresponding levels",
                         "additionalProperties": {
                             "type": "string",
                             "enum": ["none", "read", "write", "admin"]
@@ -2531,13 +2531,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_user_permissions",
-            description="Lấy danh sách permissions của một user",
+            description="Get list of permissions of a user",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user"
+                        "description": "ID of the user"
                     }
                 },
                 "required": ["user_id"]
@@ -2545,17 +2545,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_user_permissions",
-            description="Cập nhật permissions cho một user",
+            description="Update permissions for a user",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "user_id": {
                         "type": "string",
-                        "description": "ID của user"
+                        "description": "ID of the user"
                     },
                     "permissions": {
                         "type": "object",
-                        "description": "Object chứa các permissions với level tương ứng",
+                        "description": "Object containing permissions with corresponding levels",
                         "additionalProperties": {
                             "type": "string",
                             "enum": ["none", "read", "write", "admin"]
@@ -2565,39 +2565,39 @@ async def handle_list_tools() -> ListToolsResult:
                 "required": ["user_id", "permissions"]
             }
         ),
-        
+
         # ==================== ADMIN MANAGEMENT - DEPARTMENTS ====================
         Tool(
             name="list_departments",
-            description="Lấy danh sách departments từ ServiceDesk Plus",
+            description="Get list of departments from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng departments tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of departments (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "department_type": {
                         "type": "string",
-                        "description": "Lọc theo loại department"
+                        "description": "Filter by department type"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "Lọc theo site ID"
+                        "description": "Filter by site ID"
                     }
                 }
             }
         ),
         Tool(
             name="get_department",
-            description="Lấy thông tin chi tiết của một department",
+            description="Get detailed information about a department",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "department_id": {
                         "type": "string",
-                        "description": "ID của department cần lấy thông tin"
+                        "description": "ID of the department to get information"
                     }
                 },
                 "required": ["department_id"]
@@ -2605,29 +2605,29 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_department",
-            description="Tạo department mới trong ServiceDesk Plus",
+            description="Create a new department in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên của department"
+                        "description": "Name of the department"
                     },
                     "department_type": {
                         "type": "string",
-                        "description": "Loại department"
+                        "description": "Department type"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết"
+                        "description": "Detailed description"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site liên quan"
+                        "description": "ID of the associated site"
                     },
                     "manager": {
                         "type": "string",
-                        "description": "ID của manager"
+                        "description": "ID of the manager"
                     }
                 },
                 "required": ["name", "department_type"]
@@ -2635,33 +2635,33 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_department",
-            description="Cập nhật thông tin của một department",
+            description="Update information of a department",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "department_id": {
                         "type": "string",
-                        "description": "ID của department cần cập nhật"
+                        "description": "ID of the department to update"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới của department"
+                        "description": "New name of the department"
                     },
                     "department_type": {
                         "type": "string",
-                        "description": "Loại department mới"
+                        "description": "New department type"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả mới"
+                        "description": "New description"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site liên quan mới"
+                        "description": "New associated site ID"
                     },
                     "manager": {
                         "type": "string",
-                        "description": "ID của manager mới"
+                        "description": "New manager ID"
                     }
                 },
                 "required": ["department_id"]
@@ -2669,13 +2669,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_department",
-            description="Xóa một department",
+            description="Delete a department",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "department_id": {
                         "type": "string",
-                        "description": "ID của department cần xóa"
+                        "description": "ID of the department to delete"
                     }
                 },
                 "required": ["department_id"]
@@ -2683,45 +2683,45 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_department_types",
-            description="Lấy danh sách các loại department có sẵn",
+            description="Get list of available department types",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== ADMIN MANAGEMENT - LOCATIONS ====================
         Tool(
             name="list_locations",
-            description="Lấy danh sách locations từ ServiceDesk Plus",
+            description="Get list of locations from ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "limit": {
                         "type": "integer",
-                        "description": "Số lượng locations tối đa (mặc định: 50, tối đa: 1000)",
+                        "description": "Maximum number of locations (default: 50, maximum: 1000)",
                         "default": 50
                     },
                     "location_type": {
                         "type": "string",
-                        "description": "Lọc theo loại location"
+                        "description": "Filter by location type"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "Lọc theo site ID"
+                        "description": "Filter by site ID"
                     }
                 }
             }
         ),
         Tool(
             name="get_location",
-            description="Lấy thông tin chi tiết của một location",
+            description="Get detailed information about a location",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "location_id": {
                         "type": "string",
-                        "description": "ID của location cần lấy thông tin"
+                        "description": "ID of the location to get information"
                     }
                 },
                 "required": ["location_id"]
@@ -2729,37 +2729,37 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="create_location",
-            description="Tạo location mới trong ServiceDesk Plus",
+            description="Create a new location in ServiceDesk Plus",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Tên của location"
+                        "description": "Name of the location"
                     },
                     "location_type": {
                         "type": "string",
-                        "description": "Loại location"
+                        "description": "Location type"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả chi tiết"
+                        "description": "Detailed description"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site liên quan"
+                        "description": "ID of the associated site"
                     },
                     "address": {
                         "type": "string",
-                        "description": "Địa chỉ"
+                        "description": "Address"
                     },
                     "floor": {
                         "type": "string",
-                        "description": "Tầng"
+                        "description": "Floor"
                     },
                     "room": {
                         "type": "string",
-                        "description": "Phòng"
+                        "description": "Room"
                     }
                 },
                 "required": ["name", "location_type"]
@@ -2767,41 +2767,41 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_location",
-            description="Cập nhật thông tin của một location",
+            description="Update information of a location",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "location_id": {
                         "type": "string",
-                        "description": "ID của location cần cập nhật"
+                        "description": "ID of the location to update"
                     },
                     "name": {
                         "type": "string",
-                        "description": "Tên mới của location"
+                        "description": "New name of the location"
                     },
                     "location_type": {
                         "type": "string",
-                        "description": "Loại location mới"
+                        "description": "New location type"
                     },
                     "description": {
                         "type": "string",
-                        "description": "Mô tả mới"
+                        "description": "New description"
                     },
                     "site_id": {
                         "type": "string",
-                        "description": "ID của site liên quan mới"
+                        "description": "New associated site ID"
                     },
                     "address": {
                         "type": "string",
-                        "description": "Địa chỉ mới"
+                        "description": "New address"
                     },
                     "floor": {
                         "type": "string",
-                        "description": "Tầng mới"
+                        "description": "New floor"
                     },
                     "room": {
                         "type": "string",
-                        "description": "Phòng mới"
+                        "description": "New room"
                     }
                 },
                 "required": ["location_id"]
@@ -2809,13 +2809,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="delete_location",
-            description="Xóa một location",
+            description="Delete a location",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "location_id": {
                         "type": "string",
-                        "description": "ID của location cần xóa"
+                        "description": "ID of the location to delete"
                     }
                 },
                 "required": ["location_id"]
@@ -2823,17 +2823,17 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_location_types",
-            description="Lấy danh sách các loại location có sẵn",
+            description="Get list of available location types",
             inputSchema={
                 "type": "object",
                 "properties": {}
             }
         ),
-        
+
         # ==================== ADMIN MANAGEMENT - SYSTEM SETTINGS ====================
         Tool(
             name="get_system_settings",
-            description="Lấy cài đặt hệ thống",
+            description="Get system settings",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2841,13 +2841,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_system_settings",
-            description="Cập nhật cài đặt hệ thống",
+            description="Update system settings",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "settings": {
                         "type": "object",
-                        "description": "Object chứa các cài đặt hệ thống cần cập nhật"
+                        "description": "Object containing system settings to update"
                     }
                 },
                 "required": ["settings"]
@@ -2855,7 +2855,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_email_settings",
-            description="Lấy cài đặt email",
+            description="Get email settings",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2863,13 +2863,13 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_email_settings",
-            description="Cập nhật cài đặt email",
+            description="Update email settings",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "settings": {
                         "type": "object",
-                        "description": "Object chứa các cài đặt email cần cập nhật"
+                        "description": "Object containing email settings to update"
                     }
                 },
                 "required": ["settings"]
@@ -2877,7 +2877,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_notification_settings",
-            description="Lấy cài đặt thông báo",
+            description="Get notification settings",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2885,23 +2885,23 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="update_notification_settings",
-            description="Cập nhật cài đặt thông báo",
+            description="Update notification settings",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "settings": {
                         "type": "object",
-                        "description": "Object chứa các cài đặt thông báo cần cập nhật"
+                        "description": "Object containing notification settings to update"
                     }
                 },
                 "required": ["settings"]
             }
         ),
-        
+
         # ==================== REFERENCE DATA ====================
         Tool(
             name="get_categories",
-            description="Lấy danh sách các danh mục ticket có sẵn",
+            description="Get list of available ticket categories",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2909,7 +2909,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_priorities",
-            description="Lấy danh sách các mức độ ưu tiên có sẵn",
+            description="Get list of available priority levels",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2917,7 +2917,7 @@ async def handle_list_tools() -> ListToolsResult:
         ),
         Tool(
             name="get_statuses",
-            description="Lấy danh sách các trạng thái ticket có sẵn",
+            description="Get list of available ticket statuses",
             inputSchema={
                 "type": "object",
                 "properties": {}
@@ -2938,37 +2938,37 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
                 priority = arguments.get("priority")
                 requester = arguments.get("requester")
                 result = await client.get_tickets(
-                    limit=limit, 
-                    status=status, 
-                    priority=priority, 
+                    limit=limit,
+                    status=status,
+                    priority=priority,
                     requester=requester
                 )
-                
+
             elif name == "get_ticket":
                 ticket_id = arguments["ticket_id"]
                 result = await client.get_ticket(ticket_id)
-                
+
             elif name == "create_ticket":
                 result = await client.create_ticket(arguments)
-                
+
             elif name == "update_ticket":
                 ticket_id = arguments.pop("ticket_id")
                 result = await client.update_ticket(ticket_id, arguments)
-                
+
             elif name == "delete_ticket":
                 ticket_id = arguments["ticket_id"]
                 result = await client.delete_ticket(ticket_id)
-                
+
             elif name == "search_tickets":
                 query = arguments["query"]
                 limit = arguments.get("limit", 50)
                 result = await client.search_tickets(query, limit=limit)
-                
+
             elif name == "add_ticket_comment":
                 ticket_id = arguments["ticket_id"]
                 comment = arguments["comment"]
                 result = await client.add_ticket_comment(ticket_id, comment)
-                
+
             elif name == "get_ticket_comments":
                 ticket_id = arguments["ticket_id"]
                 result = await client.get_ticket_comments(ticket_id)
@@ -3119,48 +3119,48 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
             elif name == "list_users":
                 limit = arguments.get("limit", 50)
                 result = await client.get_users(limit=limit)
-                
+
             elif name == "get_user":
                 user_id = arguments["user_id"]
                 result = await client.get_user(user_id)
-                
+
             elif name == "list_technicians":
                 limit = arguments.get("limit", 50)
                 result = await client.get_technicians(limit=limit)
-                
+
             # ==================== CMDB - CONFIGURATION ITEMS ====================
             elif name == "list_configuration_items":
                 limit = arguments.get("limit", 50)
                 ci_type = arguments.get("ci_type")
                 status = arguments.get("status")
                 result = await client.get_configuration_items(
-                    limit=limit, 
-                    ci_type=ci_type, 
+                    limit=limit,
+                    ci_type=ci_type,
                     status=status
                 )
-                
+
             elif name == "get_configuration_item":
                 ci_id = arguments["ci_id"]
                 result = await client.get_configuration_item(ci_id)
-                
+
             elif name == "create_configuration_item":
                 result = await client.create_configuration_item(arguments)
-                
+
             elif name == "update_configuration_item":
                 ci_id = arguments.pop("ci_id")
                 result = await client.update_configuration_item(ci_id, arguments)
-                
+
             elif name == "delete_configuration_item":
                 ci_id = arguments["ci_id"]
                 result = await client.delete_configuration_item(ci_id)
-                
+
             elif name == "get_ci_types":
                 result = await client.get_ci_types()
-                
+
             elif name == "get_ci_relationships":
                 ci_id = arguments["ci_id"]
                 result = await client.get_ci_relationships(ci_id)
-                
+
             # ==================== ASSET MANAGEMENT ====================
             elif name == "list_assets":
                 limit = arguments.get("limit", 50)
@@ -3168,70 +3168,70 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
                 status = arguments.get("status")
                 location = arguments.get("location")
                 result = await client.get_assets(
-                    limit=limit, 
-                    asset_type=asset_type, 
-                    status=status, 
+                    limit=limit,
+                    asset_type=asset_type,
+                    status=status,
                     location=location
                 )
-                
+
             elif name == "get_asset":
                 asset_id = arguments["asset_id"]
                 result = await client.get_asset(asset_id)
-                
+
             elif name == "create_asset":
                 result = await client.create_asset(arguments)
-                
+
             elif name == "update_asset":
                 asset_id = arguments.pop("asset_id")
                 result = await client.update_asset(asset_id, arguments)
-                
+
             elif name == "delete_asset":
                 asset_id = arguments["asset_id"]
                 result = await client.delete_asset(asset_id)
-                
+
             elif name == "get_asset_types":
                 result = await client.get_asset_types()
-                
+
             elif name == "get_asset_categories":
                 result = await client.get_asset_categories()
-                
+
             elif name == "get_asset_locations":
                 result = await client.get_asset_locations()
-                
+
             elif name == "get_asset_models":
                 result = await client.get_asset_models()
-                
+
             elif name == "get_asset_vendors":
                 result = await client.get_asset_vendors()
-                
+
             # ==================== SOFTWARE LICENSE MANAGEMENT ====================
             elif name == "list_software_licenses":
                 limit = arguments.get("limit", 50)
                 product = arguments.get("product")
                 vendor = arguments.get("vendor")
                 result = await client.get_software_licenses(
-                    limit=limit, 
-                    product=product, 
+                    limit=limit,
+                    product=product,
                     vendor=vendor
                 )
-                
+
             elif name == "get_software_license":
                 license_id = arguments["license_id"]
                 result = await client.get_software_license(license_id)
-                
+
             elif name == "create_software_license":
                 result = await client.create_software_license(arguments)
-                
+
             elif name == "update_software_license":
                 license_id = arguments.pop("license_id")
                 result = await client.update_software_license(license_id, arguments)
-                
+
             elif name == "get_software_products":
                 result = await client.get_software_products()
-                
+
             elif name == "get_license_types":
                 result = await client.get_license_types()
-                
+
             # ==================== CONTRACT MANAGEMENT ====================
             elif name == "list_contracts":
                 limit = arguments.get("limit", 50)
@@ -3239,140 +3239,140 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
                 status = arguments.get("status")
                 vendor = arguments.get("vendor")
                 result = await client.get_contracts(
-                    limit=limit, 
-                    contract_type=contract_type, 
-                    status=status, 
+                    limit=limit,
+                    contract_type=contract_type,
+                    status=status,
                     vendor=vendor
                 )
-                
+
             elif name == "get_contract":
                 contract_id = arguments["contract_id"]
                 result = await client.get_contract(contract_id)
-                
+
             elif name == "create_contract":
                 result = await client.create_contract(arguments)
-                
+
             elif name == "update_contract":
                 contract_id = arguments.pop("contract_id")
                 result = await client.update_contract(contract_id, arguments)
-                
+
             elif name == "get_contract_types":
                 result = await client.get_contract_types()
-                
+
             elif name == "get_contract_vendors":
                 result = await client.get_contract_vendors()
-                
+
             # ==================== PURCHASE ORDER MANAGEMENT ====================
             elif name == "list_purchase_orders":
                 limit = arguments.get("limit", 50)
                 status = arguments.get("status")
                 vendor = arguments.get("vendor")
                 result = await client.get_purchase_orders(
-                    limit=limit, 
-                    status=status, 
+                    limit=limit,
+                    status=status,
                     vendor=vendor
                 )
-                
+
             elif name == "get_purchase_order":
                 po_id = arguments["po_id"]
                 result = await client.get_purchase_order(po_id)
-                
+
             elif name == "create_purchase_order":
                 result = await client.create_purchase_order(arguments)
-                
+
             elif name == "update_purchase_order":
                 po_id = arguments.pop("po_id")
                 result = await client.update_purchase_order(po_id, arguments)
-                
+
             elif name == "get_po_statuses":
                 result = await client.get_po_statuses()
-                
+
             # ==================== VENDOR MANAGEMENT ====================
             elif name == "list_vendors":
                 limit = arguments.get("limit", 50)
                 vendor_type = arguments.get("vendor_type")
                 result = await client.get_vendors(limit=limit, vendor_type=vendor_type)
-                
+
             elif name == "get_vendor":
                 vendor_id = arguments["vendor_id"]
                 result = await client.get_vendor(vendor_id)
-                
+
             elif name == "create_vendor":
                 result = await client.create_vendor(arguments)
-                
+
             elif name == "update_vendor":
                 vendor_id = arguments.pop("vendor_id")
                 result = await client.update_vendor(vendor_id, arguments)
-                
+
             elif name == "get_vendor_types":
                 result = await client.get_vendor_types()
-                
+
             # ==================== ADMIN MANAGEMENT - SITES ====================
             elif name == "list_sites":
                 limit = arguments.get("limit", 50)
                 site_type = arguments.get("site_type")
                 status = arguments.get("status")
                 result = await client.get_sites(
-                    limit=limit, 
-                    site_type=site_type, 
+                    limit=limit,
+                    site_type=site_type,
                     status=status
                 )
-                
+
             elif name == "get_site":
                 site_id = arguments["site_id"]
                 result = await client.get_site(site_id)
-                
+
             elif name == "create_site":
                 result = await client.create_site(arguments)
-                
+
             elif name == "update_site":
                 site_id = arguments.pop("site_id")
                 result = await client.update_site(site_id, arguments)
-                
+
             elif name == "delete_site":
                 site_id = arguments["site_id"]
                 result = await client.delete_site(site_id)
-                
+
             elif name == "get_site_types":
                 result = await client.get_site_types()
-                
+
             # ==================== ADMIN MANAGEMENT - USER GROUPS ====================
             elif name == "list_user_groups":
                 limit = arguments.get("limit", 50)
                 group_type = arguments.get("group_type")
                 site_id = arguments.get("site_id")
                 result = await client.get_user_groups(
-                    limit=limit, 
-                    group_type=group_type, 
+                    limit=limit,
+                    group_type=group_type,
                     site_id=site_id
                 )
-                
+
             elif name == "get_user_group":
                 group_id = arguments["group_id"]
                 result = await client.get_user_group(group_id)
-                
+
             elif name == "create_user_group":
                 result = await client.create_user_group(arguments)
-                
+
             elif name == "update_user_group":
                 group_id = arguments.pop("group_id")
                 result = await client.update_user_group(group_id, arguments)
-                
+
             elif name == "delete_user_group":
                 group_id = arguments["group_id"]
                 result = await client.delete_user_group(group_id)
-                
+
             elif name == "get_group_types":
                 result = await client.get_group_types()
-                
+
             elif name == "get_group_permissions":
                 group_id = arguments["group_id"]
                 result = await client.get_group_permissions(group_id)
-                
+
             elif name == "update_group_permissions":
                 group_id = arguments.pop("group_id")
                 result = await client.update_group_permissions(group_id, arguments)
-                
+
             # ==================== ADMIN MANAGEMENT - USERS & TECHNICIANS ====================
             elif name == "list_admin_users":
                 limit = arguments.get("limit", 50)
@@ -3380,57 +3380,57 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
                 role = arguments.get("role")
                 site_id = arguments.get("site_id")
                 result = await client.get_admin_users(
-                    limit=limit, 
-                    status=status, 
-                    role=role, 
+                    limit=limit,
+                    status=status,
+                    role=role,
                     site_id=site_id
                 )
-                
+
             elif name == "get_admin_user":
                 user_id = arguments["user_id"]
                 result = await client.get_admin_user(user_id)
-                
+
             elif name == "create_admin_user":
                 result = await client.create_admin_user(arguments)
-                
+
             elif name == "update_admin_user":
                 user_id = arguments.pop("user_id")
                 result = await client.update_admin_user(user_id, arguments)
-                
+
             elif name == "delete_admin_user":
                 user_id = arguments["user_id"]
                 result = await client.delete_admin_user(user_id)
-                
+
             elif name == "list_admin_technicians":
                 limit = arguments.get("limit", 50)
                 status = arguments.get("status")
                 role = arguments.get("role")
                 site_id = arguments.get("site_id")
                 result = await client.get_admin_technicians(
-                    limit=limit, 
-                    status=status, 
-                    role=role, 
+                    limit=limit,
+                    status=status,
+                    role=role,
                     site_id=site_id
                 )
-                
+
             elif name == "get_admin_technician":
                 technician_id = arguments["technician_id"]
                 result = await client.get_admin_technician(technician_id)
-                
+
             elif name == "create_admin_technician":
                 result = await client.create_admin_technician(arguments)
-                
+
             elif name == "update_admin_technician":
                 technician_id = arguments.pop("technician_id")
                 result = await client.update_admin_technician(technician_id, arguments)
-                
+
             elif name == "delete_admin_technician":
                 technician_id = arguments["technician_id"]
                 result = await client.delete_admin_technician(technician_id)
-                
+
             elif name == "get_user_roles":
                 result = await client.get_user_roles()
-                
+
             elif name == "get_technician_roles":
                 result = await client.get_technician_roles()
 
@@ -3517,97 +3517,97 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
             # ==================== ADMIN MANAGEMENT - PERMISSIONS ====================
             elif name == "get_permissions":
                 result = await client.get_permissions()
-                
+
             elif name == "get_role_permissions":
                 role_id = arguments["role_id"]
                 result = await client.get_role_permissions(role_id)
-                
+
             elif name == "update_role_permissions":
                 role_id = arguments.pop("role_id")
                 result = await client.update_role_permissions(role_id, arguments)
-                
+
             elif name == "get_user_permissions":
                 user_id = arguments["user_id"]
                 result = await client.get_user_permissions(user_id)
-                
+
             elif name == "update_user_permissions":
                 user_id = arguments.pop("user_id")
                 result = await client.update_user_permissions(user_id, arguments)
-                
+
             # ==================== ADMIN MANAGEMENT - DEPARTMENTS ====================
             elif name == "list_departments":
                 limit = arguments.get("limit", 50)
                 department_type = arguments.get("department_type")
                 site_id = arguments.get("site_id")
                 result = await client.get_departments(
-                    limit=limit, 
-                    department_type=department_type, 
+                    limit=limit,
+                    department_type=department_type,
                     site_id=site_id
                 )
-                
+
             elif name == "get_department":
                 department_id = arguments["department_id"]
                 result = await client.get_department(department_id)
-                
+
             elif name == "create_department":
                 result = await client.create_department(arguments)
-                
+
             elif name == "update_department":
                 department_id = arguments.pop("department_id")
                 result = await client.update_department(department_id, arguments)
-                
+
             elif name == "delete_department":
                 department_id = arguments["department_id"]
                 result = await client.delete_department(department_id)
-                
+
             elif name == "get_department_types":
                 result = await client.get_department_types()
-                
+
             # ==================== ADMIN MANAGEMENT - LOCATIONS ====================
             elif name == "list_locations":
                 limit = arguments.get("limit", 50)
                 location_type = arguments.get("location_type")
                 site_id = arguments.get("site_id")
                 result = await client.get_locations(
-                    limit=limit, 
-                    location_type=location_type, 
+                    limit=limit,
+                    location_type=location_type,
                     site_id=site_id
                 )
-                
+
             elif name == "get_location":
                 location_id = arguments["location_id"]
                 result = await client.get_location(location_id)
-                
+
             elif name == "create_location":
                 result = await client.create_location(arguments)
-                
+
             elif name == "update_location":
                 location_id = arguments.pop("location_id")
                 result = await client.update_location(location_id, arguments)
-                
+
             elif name == "delete_location":
                 location_id = arguments["location_id"]
                 result = await client.delete_location(location_id)
-                
+
             elif name == "get_location_types":
                 result = await client.get_location_types()
-                
+
             # ==================== ADMIN MANAGEMENT - SYSTEM SETTINGS ====================
             elif name == "get_system_settings":
                 result = await client.get_system_settings()
-                
+
             elif name == "update_system_settings":
                 result = await client.update_system_settings(arguments["settings"])
-                
+
             elif name == "get_email_settings":
                 result = await client.get_email_settings()
-                
+
             elif name == "update_email_settings":
                 result = await client.update_email_settings(arguments["settings"])
-                
+
             elif name == "get_notification_settings":
                 result = await client.get_notification_settings()
-                
+
             elif name == "update_notification_settings":
                 result = await client.update_notification_settings(arguments["settings"])
 
@@ -3624,7 +3624,7 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
 
             else:
                 result = {"error": f"Unknown tool: {name}"}
-        
+
         return CallToolResult(
             content=[
                 TextContent(
@@ -3633,7 +3633,7 @@ async def handle_call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResu
                 )
             ]
         )
-        
+
     except Exception as e:
         return CallToolResult(
             content=[
@@ -3653,7 +3653,7 @@ async def main():
         for issue in config_validation["issues"]:
             print(f"  - {issue}")
         return
-    
+
     # Run the server
     async with stdio_server() as (read_stream, write_stream):
         await server.run(

@@ -1,22 +1,22 @@
-# Hướng dẫn sử dụng ServiceDesk Plus MCP Server
+# ServiceDesk Plus MCP Server - Usage Guide
 
-## Cài đặt và Cấu hình
+## Installation and Configuration
 
-### 1. Cài đặt Dependencies
+### 1. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Cấu hình Environment Variables
+### 2. Configure Environment Variables
 
-Tạo file `.env` từ file `env.example`:
+Create a `.env` file from the `env.example` file:
 
 ```bash
 cp env.example .env
 ```
 
-Chỉnh sửa file `.env` với thông tin thực tế của bạn:
+Edit the `.env` file with your actual details:
 
 ```env
 SDP_BASE_URL=https://your-servicedesk-plus-instance.com
@@ -25,19 +25,19 @@ SDP_PASSWORD=your_password
 SDP_API_KEY=your_api_key_here
 ```
 
-### 3. Kiểm tra Kết nối
+### 3. Test the Connection
 
-Chạy script test để kiểm tra kết nối:
+Run the test script to verify the connection:
 
 ```bash
 python test_connection.py
 ```
 
-## Cấu hình MCP Client
+## MCP Client Configuration
 
-### Với Claude Desktop
+### With Claude Desktop
 
-Thêm vào file cấu hình MCP (thường ở `~/.config/claude/desktop-config.json`):
+Add to your MCP configuration file (usually at `~/.config/claude/desktop-config.json`):
 
 ```json
 {
@@ -55,9 +55,9 @@ Thêm vào file cấu hình MCP (thường ở `~/.config/claude/desktop-config.
 }
 ```
 
-### Với Cursor
+### With Cursor
 
-Thêm vào file cấu hình MCP:
+Add to your MCP configuration file:
 
 ```json
 {
@@ -70,621 +70,621 @@ Thêm vào file cấu hình MCP:
 }
 ```
 
-## Các Tools Có Sẵn
+## Available Tools
 
-### Quản lý Tickets
+### Ticket Management
 
 #### `list_tickets`
-Lấy danh sách tickets với các bộ lọc tùy chọn.
+Get list of tickets with optional filters.
 
 **Parameters:**
-- `limit` (optional): Số lượng tickets tối đa (mặc định: 50, tối đa: 1000)
-- `status` (optional): Lọc theo trạng thái (open, pending, resolved, closed, cancelled, on_hold)
-- `priority` (optional): Lọc theo mức độ ưu tiên (low, medium, high, critical)
-- `requester` (optional): Lọc theo người yêu cầu
+- `limit` (optional): Maximum number of tickets (default: 50, maximum: 1000)
+- `status` (optional): Filter by status (open, pending, resolved, closed, cancelled, on_hold)
+- `priority` (optional): Filter by priority (low, medium, high, critical)
+- `requester` (optional): Filter by requester
 
-**Ví dụ:**
+**Example:**
 ```
-Lấy 10 tickets có trạng thái "open" và mức độ ưu tiên "high"
+Get 10 tickets with status "open" and priority "high"
 ```
 
 #### `get_ticket`
-Lấy thông tin chi tiết của một ticket.
+Get detailed information about a ticket.
 
 **Parameters:**
-- `ticket_id` (required): ID của ticket
+- `ticket_id` (required): ID of the ticket
 
-**Ví dụ:**
+**Example:**
 ```
-Lấy thông tin chi tiết của ticket có ID "TKT-001"
+Get detailed information about ticket with ID "TKT-001"
 ```
 
 #### `create_ticket`
-Tạo ticket mới.
+Create a new ticket.
 
 **Parameters:**
-- `subject` (required): Tiêu đề ticket
-- `description` (required): Mô tả chi tiết
-- `requester` (required): Email hoặc ID người yêu cầu
-- `priority` (optional): Mức độ ưu tiên
-- `category` (optional): Danh mục
-- `technician` (optional): ID technician được gán
+- `subject` (required): Ticket subject
+- `description` (required): Detailed description
+- `requester` (required): Requester email or ID
+- `priority` (optional): Priority level
+- `category` (optional): Category
+- `technician` (optional): Assigned technician ID
 
-**Ví dụ:**
+**Example:**
 ```
-Tạo ticket mới với tiêu đề "Máy in không hoạt động", mô tả "Máy in HP LaserJet không in được", người yêu cầu "user@company.com", mức độ ưu tiên "medium"
+Create a new ticket with subject "Printer not working", description "HP LaserJet cannot print", requester "user@company.com", priority "medium"
 ```
 
 #### `update_ticket`
-Cập nhật thông tin ticket.
+Update ticket information.
 
 **Parameters:**
-- `ticket_id` (required): ID của ticket
-- `subject` (optional): Tiêu đề mới
-- `description` (optional): Mô tả mới
-- `status` (optional): Trạng thái mới
-- `priority` (optional): Mức độ ưu tiên mới
-- `technician` (optional): ID technician mới
+- `ticket_id` (required): ID of the ticket
+- `subject` (optional): New subject
+- `description` (optional): New description
+- `status` (optional): New status
+- `priority` (optional): New priority
+- `technician` (optional): New technician ID
 
-**Ví dụ:**
+**Example:**
 ```
-Cập nhật ticket TKT-001 với trạng thái "resolved" và mức độ ưu tiên "low"
+Update ticket TKT-001 with status "resolved" and priority "low"
 ```
 
 #### `delete_ticket`
-Xóa một ticket.
+Delete a ticket.
 
 **Parameters:**
-- `ticket_id` (required): ID của ticket
+- `ticket_id` (required): ID of the ticket
 
-### Quản lý Users
+### User Management
 
 #### `list_users`
-Lấy danh sách users.
+Get list of users.
 
 **Parameters:**
-- `limit` (optional): Số lượng users tối đa
+- `limit` (optional): Maximum number of users
 
 #### `get_user`
-Lấy thông tin chi tiết của một user.
+Get detailed information about a user.
 
 **Parameters:**
-- `user_id` (required): ID của user
+- `user_id` (required): ID of the user
 
-### Quản lý Assets
+### Asset Management
 
 #### `list_assets`
-Lấy danh sách assets.
+Get list of assets.
 
 **Parameters:**
-- `limit` (optional): Số lượng assets tối đa
+- `limit` (optional): Maximum number of assets
 
 #### `get_asset`
-Lấy thông tin chi tiết của một asset.
+Get detailed information about an asset.
 
 **Parameters:**
-- `asset_id` (required): ID của asset
+- `asset_id` (required): ID of the asset
 
-### Quản lý Technicians
+### Technician Management
 
 #### `list_technicians`
-Lấy danh sách technicians.
+Get list of technicians.
 
 **Parameters:**
-- `limit` (optional): Số lượng technicians tối đa
+- `limit` (optional): Maximum number of technicians
 
-### Tìm kiếm và Tham chiếu
+### Search and Reference
 
 #### `search_tickets`
-Tìm kiếm tickets theo từ khóa.
+Search tickets by keyword.
 
 **Parameters:**
-- `query` (required): Từ khóa tìm kiếm
-- `limit` (optional): Số lượng kết quả tối đa
+- `query` (required): Search keyword
+- `limit` (optional): Maximum number of results
 
 #### `get_categories`
-Lấy danh sách các danh mục có sẵn.
+Get list of available categories.
 
 #### `get_priorities`
-Lấy danh sách các mức độ ưu tiên có sẵn.
+Get list of available priority levels.
 
 #### `get_statuses`
-Lấy danh sách các trạng thái có sẵn.
+Get list of available statuses.
 
-### Quản lý Comments
+### Comment Management
 
 #### `add_ticket_comment`
-Thêm comment vào ticket.
+Add a comment to a ticket.
 
 **Parameters:**
-- `ticket_id` (required): ID của ticket
-- `comment` (required): Nội dung comment
+- `ticket_id` (required): ID of the ticket
+- `comment` (required): Comment content
 
 #### `get_ticket_comments`
-Lấy danh sách comments của ticket.
+Get list of comments for a ticket.
 
 **Parameters:**
-- `ticket_id` (required): ID của ticket
+- `ticket_id` (required): ID of the ticket
 
-## Quản lý Admin
+## Admin Management
 
-### Quản lý Sites
+### Site Management
 
 #### `list_sites`
-Lấy danh sách sites với bộ lọc.
+Get list of sites with filters.
 
 **Parameters:**
-- `limit` (optional): Số lượng sites tối đa (mặc định: 50)
-- `site_type` (optional): Lọc theo loại site (headquarters, branch_office, data_center, warehouse, retail_store, manufacturing_plant)
-- `status` (optional): Lọc theo trạng thái site
+- `limit` (optional): Maximum number of sites (default: 50)
+- `site_type` (optional): Filter by site type (headquarters, branch_office, data_center, warehouse, retail_store, manufacturing_plant)
+- `status` (optional): Filter by site status
 
-**Ví dụ:**
+**Example:**
 ```
-Lấy danh sách 10 sites có loại "branch_office"
+Get list of 10 sites of type "branch_office"
 ```
 
 #### `get_site`
-Lấy thông tin chi tiết của một site.
+Get detailed information about a site.
 
 **Parameters:**
-- `site_id` (required): ID của site
+- `site_id` (required): ID of the site
 
 #### `create_site`
-Tạo site mới.
+Create a new site.
 
 **Parameters:**
-- `name` (required): Tên site
-- `site_type` (required): Loại site
-- `address` (optional): Địa chỉ
-- `city` (optional): Thành phố
-- `state` (optional): Tỉnh/Bang
-- `country` (optional): Quốc gia
-- `zip_code` (optional): Mã bưu điện
-- `phone` (optional): Số điện thoại
-- `email` (optional): Email liên hệ
-- `description` (optional): Mô tả
+- `name` (required): Site name
+- `site_type` (required): Site type
+- `address` (optional): Address
+- `city` (optional): City
+- `state` (optional): State/Province
+- `country` (optional): Country
+- `zip_code` (optional): Zip code
+- `phone` (optional): Phone number
+- `email` (optional): Contact email
+- `description` (optional): Description
 
-**Ví dụ:**
+**Example:**
 ```
-Tạo site mới "Branch Office Hanoi" với loại "branch_office", địa chỉ "123 Nguyen Trai, Hanoi, Vietnam"
+Create new site "Branch Office Hanoi" of type "branch_office", address "123 Nguyen Trai, Hanoi, Vietnam"
 ```
 
 #### `update_site`
-Cập nhật thông tin site.
+Update site information.
 
 **Parameters:**
-- `site_id` (required): ID của site
-- `name` (optional): Tên mới
-- `site_type` (optional): Loại site mới
-- `address` (optional): Địa chỉ mới
-- `city` (optional): Thành phố mới
-- `state` (optional): Tỉnh/Bang mới
-- `country` (optional): Quốc gia mới
-- `zip_code` (optional): Mã bưu điện mới
-- `phone` (optional): Số điện thoại mới
-- `email` (optional): Email liên hệ mới
-- `description` (optional): Mô tả mới
+- `site_id` (required): ID of the site
+- `name` (optional): New name
+- `site_type` (optional): New site type
+- `address` (optional): New address
+- `city` (optional): New city
+- `state` (optional): New state/province
+- `country` (optional): New country
+- `zip_code` (optional): New zip code
+- `phone` (optional): New phone number
+- `email` (optional): New contact email
+- `description` (optional): New description
 
 #### `delete_site`
-Xóa một site.
+Delete a site.
 
 **Parameters:**
-- `site_id` (required): ID của site
+- `site_id` (required): ID of the site
 
 #### `get_site_types`
-Lấy danh sách các loại site có sẵn.
+Get list of available site types.
 
-### Quản lý User Groups
+### User Group Management
 
 #### `list_user_groups`
-Lấy danh sách user groups.
+Get list of user groups.
 
 **Parameters:**
-- `limit` (optional): Số lượng groups tối đa
-- `group_type` (optional): Lọc theo loại group (department, project, location_based, role_based, custom)
-- `site_id` (optional): Lọc theo site ID
+- `limit` (optional): Maximum number of groups
+- `group_type` (optional): Filter by group type (department, project, location_based, role_based, custom)
+- `site_id` (optional): Filter by site ID
 
 #### `get_user_group`
-Lấy thông tin chi tiết của một user group.
+Get detailed information about a user group.
 
 **Parameters:**
-- `group_id` (required): ID của user group
+- `group_id` (required): ID of the user group
 
 #### `create_user_group`
-Tạo user group mới.
+Create a new user group.
 
 **Parameters:**
-- `name` (required): Tên group
-- `group_type` (required): Loại group
-- `description` (optional): Mô tả
-- `site_id` (optional): ID của site liên quan
-- `manager` (optional): ID của manager
+- `name` (required): Group name
+- `group_type` (required): Group type
+- `description` (optional): Description
+- `site_id` (optional): Associated site ID
+- `manager` (optional): Manager ID
 
-**Ví dụ:**
+**Example:**
 ```
-Tạo user group "IT Support Team" với loại "department", mô tả "Team hỗ trợ IT"
+Create user group "IT Support Team" of type "department", description "IT support team"
 ```
 
 #### `update_user_group`
-Cập nhật thông tin user group.
+Update user group information.
 
 **Parameters:**
-- `group_id` (required): ID của user group
-- `name` (optional): Tên mới
-- `group_type` (optional): Loại group mới
-- `description` (optional): Mô tả mới
-- `site_id` (optional): ID của site liên quan mới
-- `manager` (optional): ID của manager mới
+- `group_id` (required): ID of the user group
+- `name` (optional): New name
+- `group_type` (optional): New group type
+- `description` (optional): New description
+- `site_id` (optional): New associated site ID
+- `manager` (optional): New manager ID
 
 #### `delete_user_group`
-Xóa một user group.
+Delete a user group.
 
 **Parameters:**
-- `group_id` (required): ID của user group
+- `group_id` (required): ID of the user group
 
 #### `get_group_types`
-Lấy danh sách các loại group có sẵn.
+Get list of available group types.
 
 #### `get_group_permissions`
-Lấy permissions của một user group.
+Get permissions for a user group.
 
 **Parameters:**
-- `group_id` (required): ID của user group
+- `group_id` (required): ID of the user group
 
 #### `update_group_permissions`
-Cập nhật permissions cho một user group.
+Update permissions for a user group.
 
 **Parameters:**
-- `group_id` (required): ID của user group
-- `permissions` (required): Object chứa các permissions với level tương ứng (none, read, write, admin)
+- `group_id` (required): ID of the user group
+- `permissions` (required): Object containing permissions with corresponding levels (none, read, write, admin)
 
-**Ví dụ:**
+**Example:**
 ```
-Cập nhật permissions cho group "IT Support" với "read" cho tickets và "write" cho assets
+Update permissions for group "IT Support" with "read" for tickets and "write" for assets
 ```
 
-### Quản lý Users & Technicians (Admin)
+### User & Technician Management (Admin)
 
 #### `list_admin_users`
-Lấy danh sách admin users.
+Get list of admin users.
 
 **Parameters:**
-- `limit` (optional): Số lượng users tối đa
-- `status` (optional): Lọc theo trạng thái (active, inactive, locked, pending_activation)
-- `role` (optional): Lọc theo role (admin, manager, technician, user, viewer)
-- `site_id` (optional): Lọc theo site ID
+- `limit` (optional): Maximum number of users
+- `status` (optional): Filter by status (active, inactive, locked, pending_activation)
+- `role` (optional): Filter by role (admin, manager, technician, user, viewer)
+- `site_id` (optional): Filter by site ID
 
 #### `get_admin_user`
-Lấy thông tin chi tiết của một admin user.
+Get detailed information about an admin user.
 
 **Parameters:**
-- `user_id` (required): ID của user
+- `user_id` (required): ID of the user
 
 #### `create_admin_user`
-Tạo admin user mới.
+Create a new admin user.
 
 **Parameters:**
-- `username` (required): Tên đăng nhập
+- `username` (required): Username
 - `email` (required): Email
-- `first_name` (required): Tên
-- `last_name` (required): Họ
-- `password` (optional): Mật khẩu
+- `first_name` (required): First name
+- `last_name` (required): Last name
+- `password` (optional): Password
 - `role` (optional): Role (admin, manager, technician, user, viewer)
-- `site_id` (optional): ID của site
-- `department` (optional): Phòng ban
-- `phone` (optional): Số điện thoại
-- `status` (optional): Trạng thái (active, inactive, locked, pending_activation)
+- `site_id` (optional): Site ID
+- `department` (optional): Department
+- `phone` (optional): Phone number
+- `status` (optional): Status (active, inactive, locked, pending_activation)
 
-**Ví dụ:**
+**Example:**
 ```
-Tạo admin user "john.doe" với email "john.doe@company.com", role "technician", gán vào site "Headquarters"
+Create admin user "john.doe" with email "john.doe@company.com", role "technician", assigned to site "Headquarters"
 ```
 
 #### `update_admin_user`
-Cập nhật thông tin admin user.
+Update admin user information.
 
 **Parameters:**
-- `user_id` (required): ID của user
-- `username` (optional): Tên đăng nhập mới
-- `email` (optional): Email mới
-- `first_name` (optional): Tên mới
-- `last_name` (optional): Họ mới
-- `role` (optional): Role mới
-- `site_id` (optional): ID của site mới
-- `department` (optional): Phòng ban mới
-- `phone` (optional): Số điện thoại mới
-- `status` (optional): Trạng thái mới
+- `user_id` (required): ID of the user
+- `username` (optional): New username
+- `email` (optional): New email
+- `first_name` (optional): New first name
+- `last_name` (optional): New last name
+- `role` (optional): New role
+- `site_id` (optional): New site ID
+- `department` (optional): New department
+- `phone` (optional): New phone number
+- `status` (optional): New status
 
 #### `delete_admin_user`
-Xóa một admin user.
+Delete an admin user.
 
 **Parameters:**
-- `user_id` (required): ID của user
+- `user_id` (required): ID of the user
 
 #### `list_admin_technicians`
-Lấy danh sách admin technicians.
+Get list of admin technicians.
 
 **Parameters:**
-- `limit` (optional): Số lượng technicians tối đa
-- `status` (optional): Lọc theo trạng thái
-- `role` (optional): Lọc theo role
-- `site_id` (optional): Lọc theo site ID
+- `limit` (optional): Maximum number of technicians
+- `status` (optional): Filter by status
+- `role` (optional): Filter by role
+- `site_id` (optional): Filter by site ID
 
 #### `get_admin_technician`
-Lấy thông tin chi tiết của một admin technician.
+Get detailed information about an admin technician.
 
 **Parameters:**
-- `technician_id` (required): ID của technician
+- `technician_id` (required): ID of the technician
 
 #### `create_admin_technician`
-Tạo admin technician mới.
+Create a new admin technician.
 
 **Parameters:**
-- `username` (required): Tên đăng nhập
+- `username` (required): Username
 - `email` (required): Email
-- `first_name` (required): Tên
-- `last_name` (required): Họ
-- `password` (optional): Mật khẩu
+- `first_name` (required): First name
+- `last_name` (required): Last name
+- `password` (optional): Password
 - `role` (optional): Role
-- `site_id` (optional): ID của site
-- `department` (optional): Phòng ban
-- `phone` (optional): Số điện thoại
-- `status` (optional): Trạng thái
-- `skills` (optional): Danh sách kỹ năng
-- `specializations` (optional): Danh sách chuyên môn
+- `site_id` (optional): Site ID
+- `department` (optional): Department
+- `phone` (optional): Phone number
+- `status` (optional): Status
+- `skills` (optional): List of skills
+- `specializations` (optional): List of specializations
 
-**Ví dụ:**
+**Example:**
 ```
-Tạo technician "jane.smith" với skills "network, security" và specializations "firewall"
+Create technician "jane.smith" with skills "network, security" and specializations "firewall"
 ```
 
 #### `update_admin_technician`
-Cập nhật thông tin admin technician.
+Update admin technician information.
 
 **Parameters:**
-- `technician_id` (required): ID của technician
-- `username` (optional): Tên đăng nhập mới
-- `email` (optional): Email mới
-- `first_name` (optional): Tên mới
-- `last_name` (optional): Họ mới
-- `role` (optional): Role mới
-- `site_id` (optional): ID của site mới
-- `department` (optional): Phòng ban mới
-- `phone` (optional): Số điện thoại mới
-- `status` (optional): Trạng thái mới
-- `skills` (optional): Danh sách kỹ năng mới
-- `specializations` (optional): Danh sách chuyên môn mới
+- `technician_id` (required): ID of the technician
+- `username` (optional): New username
+- `email` (optional): New email
+- `first_name` (optional): New first name
+- `last_name` (optional): New last name
+- `role` (optional): New role
+- `site_id` (optional): New site ID
+- `department` (optional): New department
+- `phone` (optional): New phone number
+- `status` (optional): New status
+- `skills` (optional): New list of skills
+- `specializations` (optional): New list of specializations
 
 #### `delete_admin_technician`
-Xóa một admin technician.
+Delete an admin technician.
 
 **Parameters:**
-- `technician_id` (required): ID của technician
+- `technician_id` (required): ID of the technician
 
 #### `get_user_roles`
-Lấy danh sách các user roles có sẵn.
+Get list of available user roles.
 
 #### `get_technician_roles`
-Lấy danh sách các technician roles có sẵn.
+Get list of available technician roles.
 
-### Quản lý Permissions
+### Permission Management
 
 #### `get_permissions`
-Lấy danh sách tất cả permissions có sẵn.
+Get list of all available permissions.
 
 #### `get_role_permissions`
-Lấy permissions của một role.
+Get permissions for a role.
 
 **Parameters:**
-- `role_id` (required): ID của role
+- `role_id` (required): ID of the role
 
 #### `update_role_permissions`
-Cập nhật permissions cho một role.
+Update permissions for a role.
 
 **Parameters:**
-- `role_id` (required): ID của role
-- `permissions` (required): Object chứa các permissions với level tương ứng
+- `role_id` (required): ID of the role
+- `permissions` (required): Object containing permissions with corresponding levels
 
 #### `get_user_permissions`
-Lấy permissions của một user.
+Get permissions for a user.
 
 **Parameters:**
-- `user_id` (required): ID của user
+- `user_id` (required): ID of the user
 
 #### `update_user_permissions`
-Cập nhật permissions cho một user.
+Update permissions for a user.
 
 **Parameters:**
-- `user_id` (required): ID của user
-- `permissions` (required): Object chứa các permissions với level tương ứng
+- `user_id` (required): ID of the user
+- `permissions` (required): Object containing permissions with corresponding levels
 
-### Quản lý Departments
+### Department Management
 
 #### `list_departments`
-Lấy danh sách departments.
+Get list of departments.
 
 **Parameters:**
-- `limit` (optional): Số lượng departments tối đa
-- `department_type` (optional): Lọc theo loại department
-- `site_id` (optional): Lọc theo site ID
+- `limit` (optional): Maximum number of departments
+- `department_type` (optional): Filter by department type
+- `site_id` (optional): Filter by site ID
 
 #### `get_department`
-Lấy thông tin chi tiết của một department.
+Get detailed information about a department.
 
 **Parameters:**
-- `department_id` (required): ID của department
+- `department_id` (required): ID of the department
 
 #### `create_department`
-Tạo department mới.
+Create a new department.
 
 **Parameters:**
-- `name` (required): Tên department
-- `department_type` (required): Loại department
-- `description` (optional): Mô tả
-- `site_id` (optional): ID của site liên quan
-- `manager` (optional): ID của manager
+- `name` (required): Department name
+- `department_type` (required): Department type
+- `description` (optional): Description
+- `site_id` (optional): Associated site ID
+- `manager` (optional): Manager ID
 
 #### `update_department`
-Cập nhật thông tin department.
+Update department information.
 
 **Parameters:**
-- `department_id` (required): ID của department
-- `name` (optional): Tên mới
-- `department_type` (optional): Loại department mới
-- `description` (optional): Mô tả mới
-- `site_id` (optional): ID của site liên quan mới
-- `manager` (optional): ID của manager mới
+- `department_id` (required): ID of the department
+- `name` (optional): New name
+- `department_type` (optional): New department type
+- `description` (optional): New description
+- `site_id` (optional): New associated site ID
+- `manager` (optional): New manager ID
 
 #### `delete_department`
-Xóa một department.
+Delete a department.
 
 **Parameters:**
-- `department_id` (required): ID của department
+- `department_id` (required): ID of the department
 
 #### `get_department_types`
-Lấy danh sách các loại department có sẵn.
+Get list of available department types.
 
-### Quản lý Locations
+### Location Management
 
 #### `list_locations`
-Lấy danh sách locations.
+Get list of locations.
 
 **Parameters:**
-- `limit` (optional): Số lượng locations tối đa
-- `location_type` (optional): Lọc theo loại location
-- `site_id` (optional): Lọc theo site ID
+- `limit` (optional): Maximum number of locations
+- `location_type` (optional): Filter by location type
+- `site_id` (optional): Filter by site ID
 
 #### `get_location`
-Lấy thông tin chi tiết của một location.
+Get detailed information about a location.
 
 **Parameters:**
-- `location_id` (required): ID của location
+- `location_id` (required): ID of the location
 
 #### `create_location`
-Tạo location mới.
+Create a new location.
 
 **Parameters:**
-- `name` (required): Tên location
-- `location_type` (required): Loại location
-- `description` (optional): Mô tả
-- `site_id` (optional): ID của site liên quan
-- `address` (optional): Địa chỉ
-- `floor` (optional): Tầng
-- `room` (optional): Phòng
+- `name` (required): Location name
+- `location_type` (required): Location type
+- `description` (optional): Description
+- `site_id` (optional): Associated site ID
+- `address` (optional): Address
+- `floor` (optional): Floor
+- `room` (optional): Room
 
 #### `update_location`
-Cập nhật thông tin location.
+Update location information.
 
 **Parameters:**
-- `location_id` (required): ID của location
-- `name` (optional): Tên mới
-- `location_type` (optional): Loại location mới
-- `description` (optional): Mô tả mới
-- `site_id` (optional): ID của site liên quan mới
-- `address` (optional): Địa chỉ mới
-- `floor` (optional): Tầng mới
-- `room` (optional): Phòng mới
+- `location_id` (required): ID of the location
+- `name` (optional): New name
+- `location_type` (optional): New location type
+- `description` (optional): New description
+- `site_id` (optional): New associated site ID
+- `address` (optional): New address
+- `floor` (optional): New floor
+- `room` (optional): New room
 
 #### `delete_location`
-Xóa một location.
+Delete a location.
 
 **Parameters:**
-- `location_id` (required): ID của location
+- `location_id` (required): ID of the location
 
 #### `get_location_types`
-Lấy danh sách các loại location có sẵn.
+Get list of available location types.
 
-### Quản lý System Settings
+### System Settings Management
 
 #### `get_system_settings`
-Lấy cài đặt hệ thống hiện tại.
+Get current system settings.
 
 #### `update_system_settings`
-Cập nhật cài đặt hệ thống.
+Update system settings.
 
 **Parameters:**
-- `settings` (required): Object chứa các cài đặt hệ thống cần cập nhật
+- `settings` (required): Object containing system settings to update
 
 #### `get_email_settings`
-Lấy cài đặt email hiện tại.
+Get current email settings.
 
 #### `update_email_settings`
-Cập nhật cài đặt email.
+Update email settings.
 
 **Parameters:**
-- `settings` (required): Object chứa các cài đặt email cần cập nhật
+- `settings` (required): Object containing email settings to update
 
 #### `get_notification_settings`
-Lấy cài đặt thông báo hiện tại.
+Get current notification settings.
 
 #### `update_notification_settings`
-Cập nhật cài đặt thông báo.
+Update notification settings.
 
 **Parameters:**
-- `settings` (required): Object chứa các cài đặt thông báo cần cập nhật
+- `settings` (required): Object containing notification settings to update
 
-## Ví dụ Sử Dụng Thực Tế
+## Real-World Usage Examples
 
-### Quản lý Infrastructure
+### Infrastructure Management
 ```
-"Tạo site mới 'Data Center Singapore' với loại data_center"
-"Tạo location 'Server Room A' trong site 'Data Center Singapore'"
-"Tạo department 'Infrastructure Team' và gán manager"
-"Tạo user group 'Network Admins' với permissions phù hợp"
-```
-
-### Quản lý Users
-```
-"Tạo admin user 'john.doe' với role technician"
-"Gán user 'john.doe' vào department 'IT Support'"
-"Cập nhật permissions cho role 'manager'"
-"Tạo technician 'jane.smith' với skills 'network, security'"
+"Create new site 'Data Center Singapore' of type data_center"
+"Create location 'Server Room A' in site 'Data Center Singapore'"
+"Create department 'Infrastructure Team' and assign manager"
+"Create user group 'Network Admins' with appropriate permissions"
 ```
 
-### Quản lý Permissions
+### User Management
 ```
-"Lấy danh sách tất cả permissions có sẵn"
-"Gán permission 'admin' cho tickets cho role 'manager'"
-"Cập nhật permissions cho user 'john.doe'"
-"Kiểm tra permissions của group 'IT Support'"
+"Create admin user 'john.doe' with role technician"
+"Assign user 'john.doe' to department 'IT Support'"
+"Update permissions for role 'manager'"
+"Create technician 'jane.smith' with skills 'network, security'"
 ```
 
-### Quản lý System
+### Permission Management
 ```
-"Lấy cài đặt hệ thống hiện tại"
-"Cập nhật email settings để gửi thông báo tickets"
-"Cấu hình notification settings cho high priority tickets"
-"Kiểm tra email settings cho automated reports"
+"Get list of all available permissions"
+"Assign 'admin' permission for tickets to role 'manager'"
+"Update permissions for user 'john.doe'"
+"Check permissions for group 'IT Support'"
+```
+
+### System Management
+```
+"Get current system settings"
+"Update email settings to send ticket notifications"
+"Configure notification settings for high priority tickets"
+"Check email settings for automated reports"
 ```
 
 ## Troubleshooting
 
-### Lỗi thường gặp
+### Common Errors
 
 1. **Authentication Error**
-   - Kiểm tra username/password trong file .env
-   - Đảm bảo API key hợp lệ (nếu sử dụng)
+   - Check username/password in the .env file
+   - Ensure the API key is valid (if used)
 
 2. **Connection Error**
-   - Kiểm tra URL trong SDP_BASE_URL
-   - Đảm bảo ServiceDesk Plus instance đang hoạt động
+   - Check the URL in SDP_BASE_URL
+   - Ensure the ServiceDesk Plus instance is running
 
 3. **Permission Error**
-   - Kiểm tra quyền của user trong ServiceDesk Plus
-   - Đảm bảo user có quyền admin cho các thao tác admin
+   - Check user permissions in ServiceDesk Plus
+   - Ensure the user has admin rights for admin operations
 
 4. **Validation Error**
-   - Kiểm tra các trường bắt buộc trong request
-   - Đảm bảo định dạng dữ liệu đúng
+   - Check required fields in the request
+   - Ensure data format is correct
 
 ### Debug
 
-Chạy test connection để kiểm tra:
+Run test connection to verify:
 ```bash
 python test_connection.py
 ```
 
-Kiểm tra logs chi tiết:
+Check detailed logs:
 ```bash
 python main.py --verbose
 ```
@@ -692,21 +692,21 @@ python main.py --verbose
 ## Best Practices
 
 1. **Security**
-   - Luôn sử dụng principle of least privilege
-   - Regular audit permissions và access rights
-   - Logging tất cả admin activities
+   - Always use the principle of least privilege
+   - Regularly audit permissions and access rights
+   - Log all admin activities
 
 2. **Performance**
-   - Sử dụng pagination cho danh sách lớn
-   - Cache dữ liệu thường dùng
-   - Batch operations khi có thể
+   - Use pagination for large lists
+   - Cache frequently used data
+   - Use batch operations when possible
 
 3. **Maintenance**
-   - Regular backup admin configurations
-   - Review và cleanup unused users/groups
+   - Regularly backup admin configurations
+   - Review and clean up unused users/groups
    - Monitor system performance
 
 4. **Documentation**
-   - Document tất cả custom workflows
+   - Document all custom workflows
    - Maintain user role matrix
-   - Keep site/department hierarchy updated 
+   - Keep site/department hierarchy updated

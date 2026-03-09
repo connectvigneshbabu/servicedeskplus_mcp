@@ -1,26 +1,26 @@
 # ServiceDesk Plus MCP Server
 
-MCP (Model Context Protocol) server để tích hợp với ServiceDesk Plus On-Premise với hỗ trợ đầy đủ CMDB.
+MCP (Model Context Protocol) server for integrating with ServiceDesk Plus On-Premise with full CMDB support.
 
-## 🎯 **Tính năng**
+## 🎯 **Features**
 
 ### **Ticket Management**
-- ✅ Quản lý tickets (tạo, cập nhật, xem danh sách, xóa)
-- ✅ Tìm kiếm và lọc tickets
-- ✅ Quản lý comments và attachments
+- ✅ Ticket management (create, update, list, delete)
+- ✅ Search and filter tickets
+- ✅ Manage comments and attachments
 - ✅ Workflow automation
 
 ### **CMDB (Configuration Management Database)**
-- ✅ **Configuration Items (CIs)** - Quản lý servers, network devices, software
-- ✅ **Asset Management** - Quản lý hardware, software, locations
-- ✅ **Software License Management** - Tracking licenses, compliance
+- ✅ **Configuration Items (CIs)** - Manage servers, network devices, software
+- ✅ **Asset Management** - Manage hardware, software, locations
+- ✅ **Software License Management** - Track licenses, compliance
 - ✅ **Contract Management** - Vendor contracts, SLA tracking
 - ✅ **Purchase Order Management** - Procurement automation
 - ✅ **Vendor Management** - Vendor relationships, contacts
 
 ### **Admin Management**
-- ✅ **Site Management** - Quản lý sites, locations, branches
-- ✅ **User Group Management** - Quản lý groups, permissions, roles
+- ✅ **Site Management** - Manage sites, locations, branches
+- ✅ **User Group Management** - Manage groups, permissions, roles
 - ✅ **User & Technician Management** - CRUD operations, role assignment
 - ✅ **Permission Management** - Role-based permissions, access control
 - ✅ **Department Management** - Organizational structure
@@ -28,26 +28,26 @@ MCP (Model Context Protocol) server để tích hợp với ServiceDesk Plus On-
 - ✅ **System Settings** - Email, notifications, system configuration
 
 ### **User Management**
-- ✅ Quản lý users và technicians
+- ✅ Manage users and technicians
 - ✅ Role-based access control
 - ✅ User provisioning
 
 ### **Advanced Features**
-- ✅ Authentication với ServiceDesk Plus API
+- ✅ Authentication with ServiceDesk Plus API
 - ✅ Real-time data synchronization
 - ✅ Comprehensive error handling
 - ✅ Async/await for high performance
-- ✅ Pagination và filtering
+- ✅ Pagination and filtering
 - ✅ Search capabilities
 
-## 📦 **Cài đặt**
+## 📦 **Installation**
 
-1. **Cài đặt dependencies:**
+1. **Install dependencies:**
 ```bash
 pip install -r requirements.txt
 ```
 
-2. **Tạo file `.env` với thông tin cấu hình:**
+2. **Create a `.env` file with your configuration:**
 ```env
 SDP_BASE_URL=https://your-servicedesk-plus-instance.com
 SDP_USERNAME=your_username
@@ -55,16 +55,16 @@ SDP_PASSWORD=your_password
 SDP_API_KEY=your_api_key
 ```
 
-3. **Chạy MCP server:**
+3. **Run the MCP server:**
 ```bash
 python main.py
 ```
 
-## ⚙️ **Cấu hình MCP Client**
+## ⚙️ **MCP Client Configuration**
 
-### **Với Claude Desktop**
+### **With Claude Desktop**
 
-Thêm vào file cấu hình MCP (`~/.config/claude/desktop-config.json`):
+Add to your MCP configuration file (`~/.config/claude/desktop-config.json`):
 
 ```json
 {
@@ -82,9 +82,9 @@ Thêm vào file cấu hình MCP (`~/.config/claude/desktop-config.json`):
 }
 ```
 
-### **Với Cursor**
+### **With Cursor**
 
-Thêm vào file cấu hình MCP:
+Add to your MCP configuration file:
 
 ```json
 {
@@ -100,223 +100,223 @@ Thêm vào file cấu hình MCP:
 ## 🛠️ **API Endpoints**
 
 ### **Ticket Management (15 tools)**
-- `list_tickets` - Lấy danh sách tickets với bộ lọc
-- `get_ticket` - Lấy thông tin chi tiết ticket
-- `create_ticket` - Tạo ticket mới
-- `update_ticket` - Cập nhật ticket
-- `delete_ticket` - Xóa ticket
-- `search_tickets` - Tìm kiếm tickets
-- `add_ticket_comment` - Thêm comment
-- `get_ticket_comments` - Lấy comments
+- `list_tickets` - Get list of tickets with filters
+- `get_ticket` - Get detailed ticket information
+- `create_ticket` - Create a new ticket
+- `update_ticket` - Update a ticket
+- `delete_ticket` - Delete a ticket
+- `search_tickets` - Search tickets
+- `add_ticket_comment` - Add a comment
+- `get_ticket_comments` - Get comments
 
 ### **CMDB - Configuration Items (7 tools)**
-- `list_configuration_items` - Lấy danh sách CIs
-- `get_configuration_item` - Lấy chi tiết CI
-- `create_configuration_item` - Tạo CI mới
-- `update_configuration_item` - Cập nhật CI
-- `delete_configuration_item` - Xóa CI
-- `get_ci_types` - Lấy loại CIs
-- `get_ci_relationships` - Lấy relationships
+- `list_configuration_items` - Get list of CIs
+- `get_configuration_item` - Get CI details
+- `create_configuration_item` - Create a new CI
+- `update_configuration_item` - Update a CI
+- `delete_configuration_item` - Delete a CI
+- `get_ci_types` - Get CI types
+- `get_ci_relationships` - Get relationships
 
 ### **Asset Management (10 tools)**
-- `list_assets` - Lấy danh sách assets
-- `get_asset` - Lấy chi tiết asset
-- `create_asset` - Tạo asset mới
-- `update_asset` - Cập nhật asset
-- `delete_asset` - Xóa asset
-- `get_asset_types` - Lấy loại assets
-- `get_asset_categories` - Lấy danh mục assets
-- `get_asset_locations` - Lấy vị trí assets
-- `get_asset_models` - Lấy model assets
-- `get_asset_vendors` - Lấy vendor assets
+- `list_assets` - Get list of assets
+- `get_asset` - Get asset details
+- `create_asset` - Create a new asset
+- `update_asset` - Update an asset
+- `delete_asset` - Delete an asset
+- `get_asset_types` - Get asset types
+- `get_asset_categories` - Get asset categories
+- `get_asset_locations` - Get asset locations
+- `get_asset_models` - Get asset models
+- `get_asset_vendors` - Get asset vendors
 
 ### **Software License Management (6 tools)**
-- `list_software_licenses` - Lấy danh sách licenses
-- `get_software_license` - Lấy chi tiết license
-- `create_software_license` - Tạo license mới
-- `update_software_license` - Cập nhật license
-- `get_software_products` - Lấy software products
-- `get_license_types` - Lấy loại licenses
+- `list_software_licenses` - Get list of licenses
+- `get_software_license` - Get license details
+- `create_software_license` - Create a new license
+- `update_software_license` - Update a license
+- `get_software_products` - Get software products
+- `get_license_types` - Get license types
 
 ### **Contract Management (6 tools)**
-- `list_contracts` - Lấy danh sách contracts
-- `get_contract` - Lấy chi tiết contract
-- `create_contract` - Tạo contract mới
-- `update_contract` - Cập nhật contract
-- `get_contract_types` - Lấy loại contracts
-- `get_contract_vendors` - Lấy vendor contracts
+- `list_contracts` - Get list of contracts
+- `get_contract` - Get contract details
+- `create_contract` - Create a new contract
+- `update_contract` - Update a contract
+- `get_contract_types` - Get contract types
+- `get_contract_vendors` - Get contract vendors
 
 ### **Purchase Order Management (5 tools)**
-- `list_purchase_orders` - Lấy danh sách POs
-- `get_purchase_order` - Lấy chi tiết PO
-- `create_purchase_order` - Tạo PO mới
-- `update_purchase_order` - Cập nhật PO
-- `get_po_statuses` - Lấy trạng thái POs
+- `list_purchase_orders` - Get list of POs
+- `get_purchase_order` - Get PO details
+- `create_purchase_order` - Create a new PO
+- `update_purchase_order` - Update a PO
+- `get_po_statuses` - Get PO statuses
 
 ### **Vendor Management (5 tools)**
-- `list_vendors` - Lấy danh sách vendors
-- `get_vendor` - Lấy chi tiết vendor
-- `create_vendor` - Tạo vendor mới
-- `update_vendor` - Cập nhật vendor
-- `get_vendor_types` - Lấy loại vendors
+- `list_vendors` - Get list of vendors
+- `get_vendor` - Get vendor details
+- `create_vendor` - Create a new vendor
+- `update_vendor` - Update a vendor
+- `get_vendor_types` - Get vendor types
 
 ### **Admin Management - Sites (6 tools)**
-- `list_sites` - Lấy danh sách sites
-- `get_site` - Lấy chi tiết site
-- `create_site` - Tạo site mới
-- `update_site` - Cập nhật site
-- `delete_site` - Xóa site
-- `get_site_types` - Lấy loại sites
+- `list_sites` - Get list of sites
+- `get_site` - Get site details
+- `create_site` - Create a new site
+- `update_site` - Update a site
+- `delete_site` - Delete a site
+- `get_site_types` - Get site types
 
 ### **Admin Management - User Groups (8 tools)**
-- `list_user_groups` - Lấy danh sách user groups
-- `get_user_group` - Lấy chi tiết user group
-- `create_user_group` - Tạo user group mới
-- `update_user_group` - Cập nhật user group
-- `delete_user_group` - Xóa user group
-- `get_group_types` - Lấy loại groups
-- `get_group_permissions` - Lấy permissions của group
-- `update_group_permissions` - Cập nhật permissions cho group
+- `list_user_groups` - Get list of user groups
+- `get_user_group` - Get user group details
+- `create_user_group` - Create a new user group
+- `update_user_group` - Update a user group
+- `delete_user_group` - Delete a user group
+- `get_group_types` - Get group types
+- `get_group_permissions` - Get group permissions
+- `update_group_permissions` - Update group permissions
 
 ### **Admin Management - Users & Technicians (12 tools)**
-- `list_admin_users` - Lấy danh sách admin users
-- `get_admin_user` - Lấy chi tiết admin user
-- `create_admin_user` - Tạo admin user mới
-- `update_admin_user` - Cập nhật admin user
-- `delete_admin_user` - Xóa admin user
-- `list_admin_technicians` - Lấy danh sách admin technicians
-- `get_admin_technician` - Lấy chi tiết admin technician
-- `create_admin_technician` - Tạo admin technician mới
-- `update_admin_technician` - Cập nhật admin technician
-- `delete_admin_technician` - Xóa admin technician
-- `get_user_roles` - Lấy user roles
-- `get_technician_roles` - Lấy technician roles
+- `list_admin_users` - Get list of admin users
+- `get_admin_user` - Get admin user details
+- `create_admin_user` - Create a new admin user
+- `update_admin_user` - Update an admin user
+- `delete_admin_user` - Delete an admin user
+- `list_admin_technicians` - Get list of admin technicians
+- `get_admin_technician` - Get admin technician details
+- `create_admin_technician` - Create a new admin technician
+- `update_admin_technician` - Update an admin technician
+- `delete_admin_technician` - Delete an admin technician
+- `get_user_roles` - Get user roles
+- `get_technician_roles` - Get technician roles
 
 ### **Admin Management - Permissions (5 tools)**
-- `get_permissions` - Lấy danh sách permissions
-- `get_role_permissions` - Lấy permissions của role
-- `update_role_permissions` - Cập nhật permissions cho role
-- `get_user_permissions` - Lấy permissions của user
-- `update_user_permissions` - Cập nhật permissions cho user
+- `get_permissions` - Get list of permissions
+- `get_role_permissions` - Get role permissions
+- `update_role_permissions` - Update role permissions
+- `get_user_permissions` - Get user permissions
+- `update_user_permissions` - Update user permissions
 
 ### **Admin Management - Departments (6 tools)**
-- `list_departments` - Lấy danh sách departments
-- `get_department` - Lấy chi tiết department
-- `create_department` - Tạo department mới
-- `update_department` - Cập nhật department
-- `delete_department` - Xóa department
-- `get_department_types` - Lấy loại departments
+- `list_departments` - Get list of departments
+- `get_department` - Get department details
+- `create_department` - Create a new department
+- `update_department` - Update a department
+- `delete_department` - Delete a department
+- `get_department_types` - Get department types
 
 ### **Admin Management - Locations (6 tools)**
-- `list_locations` - Lấy danh sách locations
-- `get_location` - Lấy chi tiết location
-- `create_location` - Tạo location mới
-- `update_location` - Cập nhật location
-- `delete_location` - Xóa location
-- `get_location_types` - Lấy loại locations
+- `list_locations` - Get list of locations
+- `get_location` - Get location details
+- `create_location` - Create a new location
+- `update_location` - Update a location
+- `delete_location` - Delete a location
+- `get_location_types` - Get location types
 
 ### **Admin Management - System Settings (6 tools)**
-- `get_system_settings` - Lấy system settings
-- `update_system_settings` - Cập nhật system settings
-- `get_email_settings` - Lấy email settings
-- `update_email_settings` - Cập nhật email settings
-- `get_notification_settings` - Lấy notification settings
-- `update_notification_settings` - Cập nhật notification settings
+- `get_system_settings` - Get system settings
+- `update_system_settings` - Update system settings
+- `get_email_settings` - Get email settings
+- `update_email_settings` - Update email settings
+- `get_notification_settings` - Get notification settings
+- `update_notification_settings` - Update notification settings
 
 ### **User Management (3 tools)**
-- `list_users` - Lấy danh sách users
-- `get_user` - Lấy thông tin user
-- `list_technicians` - Lấy danh sách technicians
+- `list_users` - Get list of users
+- `get_user` - Get user information
+- `list_technicians` - Get list of technicians
 
 ### **Reference Data (3 tools)**
-- `get_categories` - Lấy danh mục tickets
-- `get_priorities` - Lấy mức độ ưu tiên
-- `get_statuses` - Lấy trạng thái tickets
+- `get_categories` - Get ticket categories
+- `get_priorities` - Get priority levels
+- `get_statuses` - Get ticket statuses
 
-## 🎯 **Ví dụ Sử Dụng**
+## 🎯 **Usage Examples**
 
-### **Quản lý Infrastructure:**
+### **Infrastructure Management:**
 ```
-"Tạo Configuration Item cho server database mới 'DB-SRV-001'"
-"Lấy danh sách tất cả network devices đang hoạt động"
-"Tạo asset cho switch mới và gán vào data center"
-```
-
-### **Quản lý Software:**
-```
-"Tạo software license cho Adobe Creative Suite với 50 licenses"
-"Kiểm tra số lượng licenses còn lại cho Microsoft Office"
-"Cập nhật license Adobe với ngày hết hạn mới"
+"Create a Configuration Item for new database server 'DB-SRV-001'"
+"Get list of all active network devices"
+"Create an asset for a new switch and assign it to the data center"
 ```
 
-### **Quản lý Contracts:**
+### **Software Management:**
 ```
-"Tạo contract bảo trì với vendor Dell cho 3 năm"
-"Lấy danh sách contracts sắp hết hạn trong 30 ngày tới"
-"Cập nhật contract Microsoft với giá trị mới"
-```
-
-### **Quản lý Procurement:**
-```
-"Tạo purchase order cho 20 monitors từ vendor HP"
-"Kiểm tra trạng thái purchase order PO-2024-001"
-"Cập nhật PO với ngày giao hàng mới"
+"Create a software license for Adobe Creative Suite with 50 licenses"
+"Check remaining license count for Microsoft Office"
+"Update Adobe license with a new expiry date"
 ```
 
-### **Quản lý Admin:**
+### **Contract Management:**
 ```
-"Tạo site mới 'Branch Office Hanoi' với loại branch_office"
-"Tạo user group 'IT Support Team' và gán permissions"
-"Tạo admin user 'john.doe' với role technician"
-"Cập nhật permissions cho role 'manager'"
-"Tạo department 'Software Development'"
-"Lấy danh sách tất cả locations trong site 'Headquarters'"
-"Cập nhật email settings cho thông báo tickets"
+"Create a maintenance contract with vendor Dell for 3 years"
+"Get list of contracts expiring within the next 30 days"
+"Update Microsoft contract with new value"
 ```
 
-## 📊 **Tính năng Nổi Bật**
+### **Procurement Management:**
+```
+"Create a purchase order for 20 monitors from vendor HP"
+"Check status of purchase order PO-2024-001"
+"Update PO with a new delivery date"
+```
 
-- **🔄 Async/await** - Hiệu suất cao với async operations
-- **🛡️ Error handling** - Xử lý lỗi toàn diện
-- **🔐 Authentication** - Hỗ trợ Basic Auth và API Key
-- **📄 Pagination** - Quản lý dữ liệu lớn hiệu quả
-- **🔍 Filtering** - Bộ lọc linh hoạt cho tất cả endpoints
-- **📝 Validation** - Kiểm tra dữ liệu đầu vào
-- **📊 Logging** - Ghi log chi tiết cho debugging
-- **⚙️ Configuration** - Quản lý cấu hình linh hoạt
+### **Admin Management:**
+```
+"Create a new site 'Branch Office Hanoi' of type branch_office"
+"Create user group 'IT Support Team' and assign permissions"
+"Create admin user 'john.doe' with role technician"
+"Update permissions for role 'manager'"
+"Create department 'Software Development'"
+"Get list of all locations in site 'Headquarters'"
+"Update email settings for ticket notifications"
+```
 
-## 🚀 **Lợi Ích**
+## 📊 **Highlights**
 
-1. **Centralized Management** - Quản lý tập trung toàn bộ IT infrastructure
-2. **Compliance Tracking** - Theo dõi compliance với licenses và contracts
-3. **Asset Lifecycle** - Quản lý toàn bộ lifecycle của assets
-4. **Vendor Management** - Quản lý hiệu quả các vendor relationships
-5. **Procurement Automation** - Tự động hóa quy trình mua sắm
-6. **Reporting & Analytics** - Báo cáo và phân tích dữ liệu CMDB
-7. **AI Integration** - Tích hợp AI để tự động hóa các tác vụ
+- **🔄 Async/await** - High performance with async operations
+- **🛡️ Error handling** - Comprehensive error handling
+- **🔐 Authentication** - Supports Basic Auth and API Key
+- **📄 Pagination** - Efficiently handle large datasets
+- **🔍 Filtering** - Flexible filters for all endpoints
+- **📝 Validation** - Input data validation
+- **📊 Logging** - Detailed logging for debugging
+- **⚙️ Configuration** - Flexible configuration management
 
-## 📚 **Tài liệu Chi tiết**
+## 🚀 **Benefits**
 
-- [📖 Hướng dẫn sử dụng chi tiết](USAGE.md)
-- [🏗️ Tính năng CMDB](CMDB_FEATURES.md)
+1. **Centralized Management** - Centrally manage your entire IT infrastructure
+2. **Compliance Tracking** - Track compliance with licenses and contracts
+3. **Asset Lifecycle** - Manage the full lifecycle of assets
+4. **Vendor Management** - Efficiently manage vendor relationships
+5. **Procurement Automation** - Automate the procurement process
+6. **Reporting & Analytics** - CMDB data reporting and analytics
+7. **AI Integration** - Integrate AI to automate tasks
+
+## 📚 **Documentation**
+
+- [📖 Detailed Usage Guide](USAGE.md)
+- [🏗️ CMDB Features](CMDB_FEATURES.md)
 - [🧪 Test Connection](test_connection.py)
 
 ## 🔧 **Troubleshooting**
 
-Chạy script test để kiểm tra kết nối:
+Run the test script to check connectivity:
 ```bash
 python test_connection.py
 ```
 
-Kiểm tra logs để debug:
+Check logs for debugging:
 ```bash
 python main.py --verbose
 ```
 
 ---
 
-**Version:** 2.0.0  
-**Total Tools:** 100+ tools  
-**CMDB Support:** ✅ Full Support  
-**Admin Management:** ✅ Full Support  
-**License:** MIT 
+**Version:** 2.0.0
+**Total Tools:** 100+ tools
+**CMDB Support:** ✅ Full Support
+**Admin Management:** ✅ Full Support
+**License:** MIT

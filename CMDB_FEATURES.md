@@ -1,188 +1,188 @@
 # CMDB Features - ServiceDesk Plus MCP Server
 
-## 🎯 **Tổng quan về CMDB**
+## 🎯 **CMDB Overview**
 
-MCP server đã được mở rộng để hỗ trợ đầy đủ các chức năng CMDB (Configuration Management Database) của ServiceDesk Plus, bao gồm:
+The MCP server has been extended to fully support CMDB (Configuration Management Database) functions in ServiceDesk Plus, including:
 
-## 📋 **Các Module CMDB Đã Hỗ Trợ**
+## 📋 **Supported CMDB Modules**
 
 ### 1. **Configuration Items (CIs) Management**
-- ✅ `list_configuration_items` - Lấy danh sách CIs với bộ lọc
-- ✅ `get_configuration_item` - Lấy chi tiết CI
-- ✅ `create_configuration_item` - Tạo CI mới
-- ✅ `update_configuration_item` - Cập nhật CI
-- ✅ `delete_configuration_item` - Xóa CI
-- ✅ `get_ci_types` - Lấy danh sách loại CIs
-- ✅ `get_ci_relationships` - Lấy relationships của CI
+- ✅ `list_configuration_items` - Get list of CIs with filters
+- ✅ `get_configuration_item` - Get CI details
+- ✅ `create_configuration_item` - Create a new CI
+- ✅ `update_configuration_item` - Update a CI
+- ✅ `delete_configuration_item` - Delete a CI
+- ✅ `get_ci_types` - Get list of CI types
+- ✅ `get_ci_relationships` - Get CI relationships
 
-**Ví dụ sử dụng:**
+**Usage Examples:**
 ```
-"Tạo Configuration Item mới cho server web với tên 'WEB-SRV-001', loại 'server', trạng thái 'active'"
-"Lấy danh sách 20 Configuration Items có loại 'network_device' và trạng thái 'active'"
-"Cập nhật CI WEB-SRV-001 với trạng thái 'under_maintenance'"
+"Create a new Configuration Item for web server named 'WEB-SRV-001', type 'server', status 'active'"
+"Get list of 20 Configuration Items of type 'network_device' with status 'active'"
+"Update CI WEB-SRV-001 with status 'under_maintenance'"
 ```
 
 ### 2. **Asset Management**
-- ✅ `list_assets` - Lấy danh sách assets với bộ lọc
-- ✅ `get_asset` - Lấy chi tiết asset
-- ✅ `create_asset` - Tạo asset mới
-- ✅ `update_asset` - Cập nhật asset
-- ✅ `delete_asset` - Xóa asset
-- ✅ `get_asset_types` - Lấy danh sách loại assets
-- ✅ `get_asset_categories` - Lấy danh mục assets
-- ✅ `get_asset_locations` - Lấy vị trí assets
-- ✅ `get_asset_models` - Lấy model assets
-- ✅ `get_asset_vendors` - Lấy vendor assets
+- ✅ `list_assets` - Get list of assets with filters
+- ✅ `get_asset` - Get asset details
+- ✅ `create_asset` - Create a new asset
+- ✅ `update_asset` - Update an asset
+- ✅ `delete_asset` - Delete an asset
+- ✅ `get_asset_types` - Get list of asset types
+- ✅ `get_asset_categories` - Get asset categories
+- ✅ `get_asset_locations` - Get asset locations
+- ✅ `get_asset_models` - Get asset models
+- ✅ `get_asset_vendors` - Get asset vendors
 
-**Ví dụ sử dụng:**
+**Usage Examples:**
 ```
-"Tạo asset mới với tên 'LAPTOP-001', loại 'laptop', trạng thái 'in_use', gán cho 'john.doe@company.com'"
-"Lấy danh sách assets có trạng thái 'under_maintenance' và vị trí 'IT Department'"
-"Cập nhật asset LAPTOP-001 với trạng thái 'retired'"
+"Create new asset named 'LAPTOP-001', type 'laptop', status 'in_use', assigned to 'john.doe@company.com'"
+"Get list of assets with status 'under_maintenance' and location 'IT Department'"
+"Update asset LAPTOP-001 with status 'retired'"
 ```
 
 ### 3. **Software License Management**
-- ✅ `list_software_licenses` - Lấy danh sách software licenses
-- ✅ `get_software_license` - Lấy chi tiết license
-- ✅ `create_software_license` - Tạo license mới
-- ✅ `update_software_license` - Cập nhật license
-- ✅ `get_software_products` - Lấy danh sách software products
-- ✅ `get_license_types` - Lấy loại licenses
+- ✅ `list_software_licenses` - Get list of software licenses
+- ✅ `get_software_license` - Get license details
+- ✅ `create_software_license` - Create a new license
+- ✅ `update_software_license` - Update a license
+- ✅ `get_software_products` - Get list of software products
+- ✅ `get_license_types` - Get license types
 
-**Ví dụ sử dụng:**
+**Usage Examples:**
 ```
-"Tạo software license mới cho 'Microsoft Office 365' với 100 licenses, vendor 'Microsoft'"
-"Lấy danh sách licenses có vendor 'Adobe' và sản phẩm 'Photoshop'"
-"Cập nhật license Office 365 với số lượng licenses mới là 150"
+"Create new software license for 'Microsoft Office 365' with 100 licenses, vendor 'Microsoft'"
+"Get list of licenses from vendor 'Adobe' for product 'Photoshop'"
+"Update Office 365 license with new license count of 150"
 ```
 
 ### 4. **Contract Management**
-- ✅ `list_contracts` - Lấy danh sách contracts
-- ✅ `get_contract` - Lấy chi tiết contract
-- ✅ `create_contract` - Tạo contract mới
-- ✅ `update_contract` - Cập nhật contract
-- ✅ `get_contract_types` - Lấy loại contracts
-- ✅ `get_contract_vendors` - Lấy vendor contracts
+- ✅ `list_contracts` - Get list of contracts
+- ✅ `get_contract` - Get contract details
+- ✅ `create_contract` - Create a new contract
+- ✅ `update_contract` - Update a contract
+- ✅ `get_contract_types` - Get contract types
+- ✅ `get_contract_vendors` - Get contract vendors
 
-**Ví dụ sử dụng:**
+**Usage Examples:**
 ```
-"Tạo contract mới với vendor 'Dell', bắt đầu từ '2024-01-01', kết thúc '2024-12-31'"
-"Lấy danh sách contracts có trạng thái 'active' và vendor 'Microsoft'"
-"Cập nhật contract Dell với ngày kết thúc mới '2025-12-31'"
+"Create new contract with vendor 'Dell', starting '2024-01-01', ending '2024-12-31'"
+"Get list of contracts with status 'active' and vendor 'Microsoft'"
+"Update Dell contract with new end date '2025-12-31'"
 ```
 
 ### 5. **Purchase Order Management**
-- ✅ `list_purchase_orders` - Lấy danh sách purchase orders
-- ✅ `get_purchase_order` - Lấy chi tiết purchase order
-- ✅ `create_purchase_order` - Tạo purchase order mới
-- ✅ `update_purchase_order` - Cập nhật purchase order
-- ✅ `get_po_statuses` - Lấy trạng thái purchase orders
+- ✅ `list_purchase_orders` - Get list of purchase orders
+- ✅ `get_purchase_order` - Get purchase order details
+- ✅ `create_purchase_order` - Create a new purchase order
+- ✅ `update_purchase_order` - Update a purchase order
+- ✅ `get_po_statuses` - Get purchase order statuses
 
-**Ví dụ sử dụng:**
+**Usage Examples:**
 ```
-"Tạo purchase order mới với vendor 'HP' cho 10 laptops"
-"Lấy danh sách purchase orders có trạng thái 'pending_approval'"
-"Cập nhật PO HP-001 với trạng thái 'approved'"
+"Create new purchase order with vendor 'HP' for 10 laptops"
+"Get list of purchase orders with status 'pending_approval'"
+"Update PO HP-001 with status 'approved'"
 ```
 
 ### 6. **Vendor Management**
-- ✅ `list_vendors` - Lấy danh sách vendors
-- ✅ `get_vendor` - Lấy chi tiết vendor
-- ✅ `create_vendor` - Tạo vendor mới
-- ✅ `update_vendor` - Cập nhật vendor
-- ✅ `get_vendor_types` - Lấy loại vendors
+- ✅ `list_vendors` - Get list of vendors
+- ✅ `get_vendor` - Get vendor details
+- ✅ `create_vendor` - Create a new vendor
+- ✅ `update_vendor` - Update a vendor
+- ✅ `get_vendor_types` - Get vendor types
 
-**Ví dụ sử dụng:**
+**Usage Examples:**
 ```
-"Tạo vendor mới 'Dell Technologies' với email 'contact@dell.com'"
-"Lấy thông tin chi tiết của vendor 'Microsoft'"
-"Cập nhật vendor Dell với số điện thoại mới"
+"Create new vendor 'Dell Technologies' with email 'contact@dell.com'"
+"Get detailed information about vendor 'Microsoft'"
+"Update Dell vendor with new phone number"
 ```
 
-## 🔧 **Các Trạng Thái và Loại Dữ Liệu**
+## 🔧 **Statuses and Data Types**
 
 ### **Asset Statuses:**
-- `in_use` - Đang sử dụng
-- `in_stock` - Trong kho
-- `under_maintenance` - Đang bảo trì
-- `retired` - Đã nghỉ hưu
-- `lost` - Bị mất
-- `stolen` - Bị đánh cắp
+- `in_use` - Currently in use
+- `in_stock` - In stock
+- `under_maintenance` - Under maintenance
+- `retired` - Retired
+- `lost` - Lost
+- `stolen` - Stolen
 
 ### **CI Statuses:**
-- `active` - Hoạt động
-- `inactive` - Không hoạt động
-- `under_maintenance` - Đang bảo trì
-- `retired` - Đã nghỉ hưu
+- `active` - Active
+- `inactive` - Inactive
+- `under_maintenance` - Under maintenance
+- `retired` - Retired
 
 ### **Contract Statuses:**
-- `active` - Đang hiệu lực
-- `expired` - Đã hết hạn
-- `pending` - Chờ xử lý
-- `terminated` - Đã chấm dứt
+- `active` - Active
+- `expired` - Expired
+- `pending` - Pending
+- `terminated` - Terminated
 
 ### **Purchase Order Statuses:**
-- `draft` - Bản nháp
-- `pending_approval` - Chờ phê duyệt
-- `approved` - Đã phê duyệt
-- `ordered` - Đã đặt hàng
-- `received` - Đã nhận hàng
-- `cancelled` - Đã hủy
+- `draft` - Draft
+- `pending_approval` - Pending approval
+- `approved` - Approved
+- `ordered` - Ordered
+- `received` - Received
+- `cancelled` - Cancelled
 
-## 🎯 **Ví dụ Sử Dụng Thực Tế**
+## 🎯 **Real-World Usage Examples**
 
-### **Quản lý Infrastructure:**
+### **Infrastructure Management:**
 ```
-"Tạo Configuration Item cho server database mới 'DB-SRV-001'"
-"Lấy danh sách tất cả network devices đang hoạt động"
-"Tạo asset cho switch mới và gán vào data center"
-```
-
-### **Quản lý Software:**
-```
-"Tạo software license cho Adobe Creative Suite với 50 licenses"
-"Kiểm tra số lượng licenses còn lại cho Microsoft Office"
-"Cập nhật license Adobe với ngày hết hạn mới"
+"Create a Configuration Item for new database server 'DB-SRV-001'"
+"Get list of all active network devices"
+"Create an asset for a new switch and assign it to the data center"
 ```
 
-### **Quản lý Contracts:**
+### **Software Management:**
 ```
-"Tạo contract bảo trì với vendor Dell cho 3 năm"
-"Lấy danh sách contracts sắp hết hạn trong 30 ngày tới"
-"Cập nhật contract Microsoft với giá trị mới"
-```
-
-### **Quản lý Procurement:**
-```
-"Tạo purchase order cho 20 monitors từ vendor HP"
-"Kiểm tra trạng thái purchase order PO-2024-001"
-"Cập nhật PO với ngày giao hàng mới"
+"Create a software license for Adobe Creative Suite with 50 licenses"
+"Check remaining license count for Microsoft Office"
+"Update Adobe license with a new expiry date"
 ```
 
-## 🔍 **Tìm Kiếm và Báo Cáo**
+### **Contract Management:**
+```
+"Create a maintenance contract with vendor Dell for 3 years"
+"Get list of contracts expiring within the next 30 days"
+"Update Microsoft contract with new value"
+```
 
-Tất cả các tools đều hỗ trợ:
-- **Pagination** - Giới hạn số lượng kết quả
-- **Filtering** - Lọc theo các tiêu chí khác nhau
-- **Search** - Tìm kiếm theo từ khóa
-- **Sorting** - Sắp xếp kết quả
+### **Procurement Management:**
+```
+"Create a purchase order for 20 monitors from vendor HP"
+"Check status of purchase order PO-2024-001"
+"Update PO with a new delivery date"
+```
 
-## 📊 **Tích Hợp với AI**
+## 🔍 **Search and Reporting**
 
-MCP server cho phép AI assistant:
-- **Tự động tạo** CIs, assets, licenses, contracts
-- **Theo dõi** trạng thái và lifecycle của các items
-- **Báo cáo** về inventory và compliance
-- **Quản lý** relationships giữa các items
-- **Tối ưu hóa** procurement và vendor management
+All tools support:
+- **Pagination** - Limit the number of results
+- **Filtering** - Filter by various criteria
+- **Search** - Search by keyword
+- **Sorting** - Sort results
 
-## 🚀 **Lợi Ích**
+## 📊 **AI Integration**
 
-1. **Centralized Management** - Quản lý tập trung tất cả configuration items
-2. **Compliance Tracking** - Theo dõi compliance với licenses và contracts
-3. **Asset Lifecycle** - Quản lý toàn bộ lifecycle của assets
-4. **Vendor Management** - Quản lý hiệu quả các vendor relationships
-5. **Procurement Automation** - Tự động hóa quy trình mua sắm
-6. **Reporting & Analytics** - Báo cáo và phân tích dữ liệu CMDB
+The MCP server enables AI assistants to:
+- **Automatically create** CIs, assets, licenses, contracts
+- **Track** the status and lifecycle of items
+- **Report** on inventory and compliance
+- **Manage** relationships between items
+- **Optimize** procurement and vendor management
 
-Với các chức năng CMDB này, MCP server cung cấp một giải pháp hoàn chỉnh để quản lý toàn bộ IT infrastructure thông qua AI assistant! 
+## 🚀 **Benefits**
+
+1. **Centralized Management** - Centrally manage all configuration items
+2. **Compliance Tracking** - Track compliance with licenses and contracts
+3. **Asset Lifecycle** - Manage the full lifecycle of assets
+4. **Vendor Management** - Efficiently manage vendor relationships
+5. **Procurement Automation** - Automate the procurement process
+6. **Reporting & Analytics** - CMDB data reporting and analytics
+
+With these CMDB functions, the MCP server provides a complete solution to manage your entire IT infrastructure through an AI assistant!
